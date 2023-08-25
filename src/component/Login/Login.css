@@ -1,23 +1,94 @@
+@import url("https://fonts.googleapis.com/css2?family=Open+Sans&display=swap");
+
+.body {
+  font-family: "Open Sans", sans-serif;
+}
+.login_body {
+  background-color: rgb(117, 157, 209);
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-image: linear-gradient(
+    to top,
+    rgba(223, 108, 83, 1),
+    rgba(253, 189, 78, 1)
+  );
+}
+
 .form_card {
-  height: 00px;
-  width: 300px;
   text-align: center;
-  justify-items: center;
-  margin-top: 150px;
-  text-align: center;
-  margin-left: 500px;
-  height: 300px;
-  width: 300px;
+  height: 480px;
+  width: 350px;
+  background-color: white;
+  border-radius: 5px;
 }
-#components-form-demo-normal-login .login-form {
-  max-width: 300px;
+.form_heading {
+  color: #515151;
 }
-#components-form-demo-normal-login .login-form-forgot {
-  float: right;
+.form_card input {
+  background-color: transparent;
 }
-#components-form-demo-normal-login .ant-col-rtl .login-form-forgot {
-  float: left;
+
+.form_input_style {
+  background-color: #f3f3f3;
+  outline: none !important;
+  border: none !important;
 }
-#components-form-demo-normal-login .login-form-button {
-  width: 100%;
+.form_input_style:hover {
+  outline: none !important;
+  border: none !important;
+}
+.form_input_style:focus {
+  outline: none !important;
+  border: none !important;
+}
+
+.forget_password {
+  text-align: right;
+  color: #7d7979;
+  font-family: "Open Sans", sans-serif;
+  font-style: italic;
+}
+.signin_btn {
+  background-image: linear-gradient(
+    to right,
+    rgba(223, 108, 83, 1),
+    rgba(253, 187, 79, 1)
+  );
+  color: white;
+  font-family: "Roboto", sans-serif;
+}
+.signin_btn:hover {
+  border: none !important;
+  color: white !important;
+}
+.or_divider {
+  color: #7d7979;
+}
+.facebook_login_btn {
+  background-color: #3a5998;
+  color: white;
+  font-size: 11px !important;
+  font-family: sans-serif;
+}
+.twitter_login_btn {
+  background-color: #05abed;
+  color: white;
+  font-size: 11px !important;
+  font-family: sans-serif;
+}
+.google_login_btn {
+  background-color: #f44235;
+  color: white;
+  font-size: 11px !important;
+  font-family: sans-serif;
+}
+
+.facebook_login_btn:hover,
+.twitter_login_btn:hover,
+.google_login_btn:hover {
+  border: none !important;
+  color: white !important;
 }

@@ -1,73 +1,96 @@
-import React from "react";
-import { LockOutlined, UserOutlined } from "@ant-design/icons";
-import { Button, Checkbox, Form, Input } from "antd";
+import React, { useState } from "react";
+import { Button, Divider, Form, Input } from "antd";
+import { AiFillGoogleCircle } from "react-icons/ai";
+import { TfiTwitter } from "react-icons/tfi";
+import { FaFacebook } from "react-icons/fa";
+import { TbMailFilled } from "react-icons/tb";
+import { FaLock } from "react-icons/fa";
 import "./Login.css";
-
+// import { firestore } from "../firebase";
 const Login = () => {
-  const onFinish = (values) => {
-    console.log("Received values of form: ", values);
+  const [user, setUser] = useState({
+    email: "",
+    password: "",
+  });
+
+  const getUserData = (event) => {
+    let name, value;
+    name = event.target.name;
+    value = event.target.value;
+    setUser({ ...user, [name]: value });
   };
+
+  // const postData = async (e) => {
+  //   e.preventDefault();
+  //   console.log(user);
+  //   try {
+  //     await firestore.collection("users").add({
+  //       // email: email,
+  //       // password: password,
+  //     });
+  //     console.log("data added successfully");
+  //   } catch (error) {
+  //     console.error("Error adding data to Firestore: ", error);
+  //   }
+  // };
+
   return (
     <>
-      <div className="form_card">
-        <Form
-          name="normal_login"
-          className="login_form"
-          initialValues={{
-            remember: true,
-          }}
-          onFinish={onFinish}
-        >
-          <Form.Item
-            name="username"
-            rules={[
-              {
-                required: true,
-                message: "Please input your Username!",
-              },
-            ]}
-          >
+      <div className="login_body">
+        <div className="container form_card">
+          <Form>
+            <h3 className="form_heading mt-3">LogIn</h3>
             <Input
-              prefix={<UserOutlined className="site-form-item-icon" />}
-              placeholder="Username"
+              className="mt-3 form_input_style"
+              placeholder="Enter Email"
+              suffix={<TbMailFilled style={{ color: "#7D7979" }} />}
+              name="email"
+              value={user.email}
+              onChange={getUserData}
             />
-          </Form.Item>
-          <Form.Item
-            name="password"
-            rules={[
-              {
-                required: true,
-                message: "Please input your Password!",
-              },
-            ]}
-          >
             <Input
-              prefix={<LockOutlined className="site-form-item-icon" />}
-              type="password"
-              placeholder="Password"
+              className="mt-4 form_input_style"
+              placeholder="password"
+              suffix={<FaLock style={{ color: "#7D7979" }} />}
+              name="password"
+              value={user.password}
+              onChange={getUserData}
             />
-          </Form.Item>
-          <Form.Item>
-            <Form.Item name="remember" valuePropName="checked" noStyle>
-              <Checkbox>Remember me</Checkbox>
-            </Form.Item>
+            <p className="forget_password mt-2">Forget password</p>
 
-            <a className="login-form-forgot" href="">
-              Forgot password
-            </a>
-          </Form.Item>
-
-          <Form.Item>
-            <Button
-              type="primary"
-              htmlType="submit"
-              className="login-form-button"
-            >
-              Log in
+            <Button block className="signin_btn mt-1">
+              Sign In
             </Button>
-            Or <a href="">register now!</a>
-          </Form.Item>
-        </Form>
+            <Divider className="or_divider">Or</Divider>
+
+            <Button
+              className="facebook_login_btn"
+              icon={<FaFacebook />}
+              size={"large"}
+              block
+            >
+              LOG IN WITH FACEBOOK
+            </Button>
+
+            <Button
+              icon={<TfiTwitter />}
+              className="twitter_login_btn  mt-4"
+              size={"large"}
+              block
+            >
+              LOG IN WITH TWITTER
+            </Button>
+
+            <Button
+              className="google_login_btn  mt-4"
+              icon={<AiFillGoogleCircle />}
+              size={"large"}
+              block
+            >
+              LOG IN WITH GOOGLE
+            </Button>
+          </Form>
+        </div>
       </div>
     </>
   );
