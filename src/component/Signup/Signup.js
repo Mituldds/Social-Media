@@ -38,7 +38,7 @@ const Login = () => {
       const docRef = await addDoc(collection(fireStore, "users"), userData);
       console.log("User added with ID: ", docRef.id);
       toast.success("Registration successfully");
-      navigate("./");
+      navigate("./login");
     } catch (error) {
       console.error("Error adding user: ", error);
     }
