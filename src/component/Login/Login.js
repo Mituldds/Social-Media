@@ -6,7 +6,10 @@ import { FaFacebook } from "react-icons/fa";
 import { TbMailFilled } from "react-icons/tb";
 import { FaLock } from "react-icons/fa";
 import "./Login.css";
-// import { firestore } from "../firebase";
+import { firestore } from "../../firebasefile";
+
+// E:\Mitul\Learning\Project\social-media\src\firebasefile.js
+
 const Login = () => {
   const [user, setUser] = useState({
     email: "",
@@ -20,19 +23,28 @@ const Login = () => {
     setUser({ ...user, [name]: value });
   };
 
-  // const postData = async (e) => {
-  //   e.preventDefault();
-  //   console.log(user);
-  //   try {
-  //     await firestore.collection("users").add({
-  //       // email: email,
-  //       // password: password,
-  //     });
-  //     console.log("data added successfully");
-  //   } catch (error) {
-  //     console.error("Error adding data to Firestore: ", error);
-  //   }
-  // };
+  const postData = async (event) => {
+    event.preventDefault();
+    const { email, password } = user;
+    const res = await fetch(
+      "https://fir-form-6ffa9-default-rtdb.firebaseio.com/userDataRecords.json",
+      {
+        method: "POST",
+        Headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          email,
+          password,
+        }),
+      }
+    );
+    if (res) {
+      alert("Data saved successfully");
+    } else {
+      alert("plz fill the data");
+    }
+  };
 
   return (
     <>
@@ -58,7 +70,7 @@ const Login = () => {
             />
             <p className="forget_password mt-2">Forget password</p>
 
-            <Button block className="signin_btn mt-1">
+            <Button block className="signin_btn mt-1" onClick={postData}>
               Sign In
             </Button>
             <Divider className="or_divider">Or</Divider>
