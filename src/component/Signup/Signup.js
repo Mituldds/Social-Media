@@ -7,12 +7,12 @@ import { TfiTwitter } from "react-icons/tfi";
 import { FaFacebook } from "react-icons/fa";
 import { Button, Divider, Form, Input } from "antd";
 import "./Signup.css";
-import { fireStore } from "../../firebasefile";
-import { addDoc, collection } from "firebase/firestore";
+import { fireStore } from "../../FirebaseConfig";
+import { collection, query, where, getDocs, addDoc } from "firebase/firestore";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 
-const Login = () => {
+const Signup = () => {
   const navigate = useNavigate();
   const [userData, setUserData] = useState({
     name: "",
@@ -32,13 +32,27 @@ const Login = () => {
     console.log("====================================");
   };
 
-  const submitSignupData = async (event) => {
-    // event.preventDefault();
+  const submitSignupData = async () => {
+    if (userData.email == "" || userData.password == "") {
+      toast.error("Please fullfill your email address and password");
+    }
     try {
+      const usersRef = collection(fireStore, "users");
+      const q = query(usersRef, where("email", "==", userData.email));
+      const querySnapshot = await getDocs(q);
+
+      const foundUsers = [];
+      querySnapshot.forEach((doc) => {
+        foundUsers.push(doc.data());
+      });
+
+      if (foundUsers?.length) {
+        return console.log("user already exciste");
+      }
       const docRef = await addDoc(collection(fireStore, "users"), userData);
       console.log("User added with ID: ", docRef.id);
       toast.success("Registration successfully");
-      navigate("./login");
+      navigate("/login");
     } catch (error) {
       console.error("Error adding user: ", error);
     }
@@ -125,4 +139,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default Signup;

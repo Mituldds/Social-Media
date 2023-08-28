@@ -1,16 +1,18 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 import { Button, Divider, Form, Input } from "antd";
 import { AiFillGoogleCircle } from "react-icons/ai";
 import { TfiTwitter } from "react-icons/tfi";
-import { FaFacebook } from "react-icons/fa";
+import { FaFacebook, FaLock } from "react-icons/fa";
 import { TbMailFilled } from "react-icons/tb";
-import { FaLock } from "react-icons/fa";
+import { collection, getDocs, query, where } from "firebase/firestore";
 import "./Login.css";
-import { firestore } from "../../firebasefile";
-
-// E:\Mitul\Learning\Project\social-media\src\firebasefile.js
+import { fireStore } from "../../FirebaseConfig";
 
 const Login = () => {
+  const navigate = useNavigate();
+
   const [user, setUser] = useState({
     email: "",
     password: "",
@@ -26,23 +28,27 @@ const Login = () => {
   const postData = async (event) => {
     event.preventDefault();
     const { email, password } = user;
-    const res = await fetch(
-      "https://fir-form-6ffa9-default-rtdb.firebaseio.com/userDataRecords.json",
-      {
-        method: "POST",
-        Headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          email,
-          password,
-        }),
+
+    const usersRef = collection(fireStore, "users");
+    const q = query(usersRef, where("email", "==", email));
+    const querySnapshot = await getDocs(q);
+
+    const foundUsers = [];
+    querySnapshot.forEach((doc) => {
+      foundUsers.push(doc.data());
+    });
+
+    console.log(foundUsers, "ffdfdf");
+
+    if (foundUsers?.length) {
+      if (foundUsers[0].password == password) {
+        toast.success("login successful");
+        navigate("/");
+      } else {
+        toast.error("password not matched");
       }
-    );
-    if (res) {
-      alert("Data saved successfully");
     } else {
-      alert("plz fill the data");
+      alert("User not found & please enter your valid email ");
     }
   };
 
