@@ -33,28 +33,38 @@ const Signup = () => {
   };
 
   const submitSignupData = async () => {
-    if (userData.email == "" || userData.password == "") {
-      toast.error("Please fullfill your email address and password");
-    }
-    try {
-      const usersRef = collection(fireStore, "users");
-      const q = query(usersRef, where("email", "==", userData.email));
-      const querySnapshot = await getDocs(q);
+    // const { name, email, mobile_number, password, confirm_password } = userData;
 
-      const foundUsers = [];
-      querySnapshot.forEach((doc) => {
-        foundUsers.push(doc.data());
-      });
+    if (
+      userData.name == "" ||
+      userData.email == "" ||
+      userData.mobile_number == "" ||
+      userData.password == "" ||
+      userData.confirm_password == ""
+    ) {
+      toast.error("Please fullfill All fields");
+    } else {
+      try {
+        const usersRef = collection(fireStore, "users");
+        const q = query(usersRef, where("email", "==", userData.email));
+        const querySnapshot = await getDocs(q);
 
-      if (foundUsers?.length) {
-        return console.log("user already exciste");
+        const foundUsers = [];
+        querySnapshot.forEach((doc) => {
+          foundUsers.push(doc.data());
+        });
+
+        if (foundUsers?.length) {
+          return toast.error("User already exists");
+          // console.log("user already exciste");
+        }
+        const docRef = await addDoc(collection(fireStore, "users"), userData);
+        console.log("User added with ID: ", docRef.id);
+        toast.success("Registration successfully");
+        navigate("/login");
+      } catch (error) {
+        console.error("Error adding user: ", error);
       }
-      const docRef = await addDoc(collection(fireStore, "users"), userData);
-      console.log("User added with ID: ", docRef.id);
-      toast.success("Registration successfully");
-      navigate("/login");
-    } catch (error) {
-      console.error("Error adding user: ", error);
     }
   };
 
@@ -71,6 +81,7 @@ const Signup = () => {
               name="name"
               value={userData.name}
               onChange={handleSignupUser}
+              required
             />
             <Input
               className="mt-4 signup_form_input_style"
@@ -79,6 +90,7 @@ const Signup = () => {
               name="email"
               value={userData.email}
               onChange={handleSignupUser}
+              required
             />
             <Input
               className="mt-4 signup_form_input_style"
@@ -87,7 +99,9 @@ const Signup = () => {
               name="mobile_number"
               value={userData.mobile_number}
               onChange={handleSignupUser}
+              required
             />
+
             <Input
               className="mt-4 signup_form_input_style"
               placeholder="password"
@@ -95,6 +109,7 @@ const Signup = () => {
               name="password"
               value={userData.password}
               onChange={handleSignupUser}
+              required
             />
             <Input
               className="mt-4 signup_form_input_style"

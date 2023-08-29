@@ -7,8 +7,9 @@ import { TfiTwitter } from "react-icons/tfi";
 import { FaFacebook, FaLock } from "react-icons/fa";
 import { TbMailFilled } from "react-icons/tb";
 import { collection, getDocs, query, where } from "firebase/firestore";
+import { fireStore, auth, provider } from "../../FirebaseConfig";
+import { signInWithPopup } from "firebase/auth";
 import "./Login.css";
-import { fireStore } from "../../FirebaseConfig";
 
 const Login = () => {
   const navigate = useNavigate();
@@ -52,6 +53,40 @@ const Login = () => {
     }
   };
 
+  const handleGoogleSignIn = () => {
+    signInWithPopup(auth, provider)
+      .then((result) => {
+        const firebaseUser = result.user;
+        setUser(firebaseUser);
+        navigate("/");
+        toast.success("Successfully signed in with Google");
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
+  const handlefacebookSignIn = () => {
+    signInWithPopup(auth, provider)
+      .then((result) => {
+        const firebaseUser = result.user;
+        setUser(firebaseUser);
+        navigate("/");
+        toast.success(
+          <span>
+            Successfully signed in with Facebook <FaFacebook />
+          </span>
+        );
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
+  const handleForgetPwd = () => {
+    navigate("/forgot_password");
+  };
+
   return (
     <>
       <div className="login_body">
@@ -74,7 +109,9 @@ const Login = () => {
               value={user.password}
               onChange={getUserData}
             />
-            <p className="forget_password mt-2">Forget password</p>
+            <p className="forget_password mt-2" onClick={handleForgetPwd}>
+              Forget password
+            </p>
 
             <Button block className="signin_btn mt-1" onClick={postData}>
               Sign In
@@ -86,6 +123,7 @@ const Login = () => {
               icon={<FaFacebook />}
               size={"large"}
               block
+              onClick={handlefacebookSignIn}
             >
               LOG IN WITH FACEBOOK
             </Button>
@@ -104,8 +142,9 @@ const Login = () => {
               icon={<AiFillGoogleCircle />}
               size={"large"}
               block
+              onClick={handleGoogleSignIn}
             >
-              LOG IN WITH GOOGLE
+              SIGN IN WITH GOOGLE
             </Button>
           </Form>
         </div>
