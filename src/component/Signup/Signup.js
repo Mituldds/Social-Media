@@ -33,8 +33,6 @@ const Signup = () => {
   };
 
   const submitSignupData = async () => {
-    // const { name, email, mobile_number, password, confirm_password } = userData;
-
     if (
       userData.name == "" ||
       userData.email == "" ||

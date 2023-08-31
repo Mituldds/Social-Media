@@ -10,11 +10,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background-image: linear-gradient(
-    to top,
-    rgba(223, 108, 83, 1),
-    rgba(253, 189, 78, 1)
-  );
+  background-image: linear-gradient(to top, rgb(22, 42, 46), rgb(78, 212, 253));
 }
 
 .form_card {
@@ -45,7 +41,7 @@
   border: none !important;
 }
 
-.forget_password {
+.forget_reset_password {
   text-align: right;
   color: #7d7979;
   font-family: "Open Sans", sans-serif;

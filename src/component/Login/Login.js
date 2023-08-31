@@ -8,7 +8,8 @@ import { FaFacebook, FaLock } from "react-icons/fa";
 import { TbMailFilled } from "react-icons/tb";
 import { collection, getDocs, query, where } from "firebase/firestore";
 import { fireStore, auth, provider } from "../../FirebaseConfig";
-import { signInWithPopup } from "firebase/auth";
+import { signInWithPopup, signInWithEmailAndPassword } from "firebase/auth";
+
 import "./Login.css";
 
 const Login = () => {
@@ -26,7 +27,7 @@ const Login = () => {
     setUser({ ...user, [name]: value });
   };
 
-  const postData = async (event) => {
+  const handleSignIn = async (event) => {
     event.preventDefault();
     const { email, password } = user;
 
@@ -49,9 +50,19 @@ const Login = () => {
         toast.error("password not matched");
       }
     } else {
-      alert("User not found & please enter your valid email ");
+      toast.error("User not found & please enter your valid email ");
     }
   };
+
+  // const signIn = async () => {
+  //   const { email, password } = user;
+  //   try {
+  //     await signInWithEmailAndPassword(email, password);
+  //     console.log("Signed in successfully");
+  //   } catch (error) {
+  //     console.error("Error signing in:", error);
+  //   }
+  // };
 
   const handleGoogleSignIn = () => {
     signInWithPopup(auth, provider)
@@ -87,6 +98,10 @@ const Login = () => {
     navigate("/forgot_password");
   };
 
+  const handleResetPwd = () => {
+    navigate("/reset_password");
+  };
+
   return (
     <>
       <div className="login_body">
@@ -109,11 +124,19 @@ const Login = () => {
               value={user.password}
               onChange={getUserData}
             />
-            <p className="forget_password mt-2" onClick={handleForgetPwd}>
-              Forget password
-            </p>
+            <div className="container row mt-3">
+              <p
+                className="col forget_reset_password"
+                onClick={handleForgetPwd}
+              >
+                Forget password
+              </p>
+              <p className="col forget_reset_password" onClick={handleResetPwd}>
+                Reset password
+              </p>
+            </div>
 
-            <Button block className="signin_btn mt-1" onClick={postData}>
+            <Button block className="signin_btn " onClick={handleSignIn}>
               Sign In
             </Button>
             <Divider className="or_divider">Or</Divider>

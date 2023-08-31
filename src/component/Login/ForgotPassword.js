@@ -3,16 +3,18 @@ import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { Button, Divider, Form, Input } from "antd";
 import { TbMailFilled } from "react-icons/tb";
-import { collection, getDocs, query, where } from "firebase/firestore";
-import { fireStore, auth, provider } from "../../FirebaseConfig";
 import "./ForgotPassword.css";
+
+import { auth } from "../../FirebaseConfig";
+
+import { sendPasswordResetEmail } from "firebase/auth";
 
 const ForgotPassword = () => {
   const navigate = useNavigate();
 
   const [user, setUser] = useState({
     email: "",
-    password: "",
+    message: "",
   });
 
   const getUserData = (event) => {
@@ -22,54 +24,47 @@ const ForgotPassword = () => {
     setUser({ ...user, [name]: value });
   };
 
-  const postData = async (event) => {
-    event.preventDefault();
-    const { email, password } = user;
+  const handleForgotPassword = async (e) => {
+    e.preventDefault();
 
-    const usersRef = collection(fireStore, "users");
-    const q = query(usersRef, where("email", "==", email));
-    const querySnapshot = await getDocs(q);
-
-    const foundUsers = [];
-    querySnapshot.forEach((doc) => {
-      foundUsers.push(doc.data());
-    });
-
-    console.log(foundUsers, "ffdfdf");
-
-    if (foundUsers?.length) {
-      if (foundUsers[0].password == password) {
-        toast.success("login successful");
-        navigate("/");
-      } else {
-        toast.error("password not matched");
-      }
-    } else {
-      alert("User not found & please enter your valid email ");
-    }
+    sendPasswordResetEmail(auth, user.email)
+      .then(() => {
+        // Password reset email sent!
+        toast.success("Password reset email sent successfully.");
+      })
+      .catch((error) => {
+        toast.error(error.message);
+        // ..
+      });
   };
 
   return (
     <>
       <div className="forget_body">
         <div className="container forget_form_card">
+          <h3 className="forget_label mt-2">Forget Password</h3>
+
           <Form>
             <img
-              className="forget_img mt-4"
+              className="forget_img mt-1"
               src="../Images/3275434.jpg"
               alt="Forget password"
             />
-
+            <label className="mt-2">Enter Your Email-Address</label>
             <Input
-              className="mt-3 form_input_style"
+              className="container mt-2 form_input_style"
               placeholder="Enter Email"
               suffix={<TbMailFilled style={{ color: "#7D7979" }} />}
               name="email"
               value={user.email}
               onChange={getUserData}
             />
-            <Button block className="signin_btn mt-4" onClick={postData}>
-              Reset Password
+            <Button
+              block
+              className="container signin_btn mt-4"
+              onClick={handleForgotPassword}
+            >
+              Send Link
             </Button>
           </Form>
         </div>
