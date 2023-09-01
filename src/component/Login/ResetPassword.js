@@ -93,7 +93,7 @@ const ResetPassword = () => {
             />
             <Button
               block
-              className="signin_btn mt-4"
+              className="reset_btn mt-4"
               onClick={handleChangePassword}
             >
               Reset Password

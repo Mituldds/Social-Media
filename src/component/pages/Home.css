@@ -1,0 +1,15 @@
+.header_btn {
+  display: flex;
+  justify-content: flex-end;
+}
+.login_button {
+  padding: 4px 30px 4px 30px;
+}
+.signup_button {
+  padding: 4px 30px 4px 30px;
+}
+
+.header {
+  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.2),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.15);
+}

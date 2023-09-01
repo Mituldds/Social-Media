@@ -61,7 +61,7 @@ const ForgotPassword = () => {
             />
             <Button
               block
-              className="container signin_btn mt-4"
+              className="container forget_btn mt-4"
               onClick={handleForgotPassword}
             >
               Send Link

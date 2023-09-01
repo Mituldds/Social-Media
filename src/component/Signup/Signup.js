@@ -120,13 +120,13 @@ const Signup = () => {
 
             <Button
               block
-              className="signin_btn mt-4"
+              className="signup_btn mt-4"
               type="submit"
               onClick={submitSignupData}
             >
               Sign Up
             </Button>
-            <p className="signin_options mt-2">Sign In </p>
+            <p className="signup_options mt-2">Sign In </p>
             <Divider className="or_divider">Or</Divider>
             <Button
               className="facebook_login_btn"

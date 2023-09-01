@@ -10,11 +10,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background-image: linear-gradient(
-    to top,
-    rgba(223, 108, 83, 1),
-    rgba(253, 189, 78, 1)
-  );
+  background-image: linear-gradient(to top, rgb(22, 42, 46), rgb(78, 212, 253));
 }
 
 .signup_form_card {
@@ -23,9 +19,10 @@
   width: 350px;
   background-color: white;
   border-radius: 5px;
+  background-image: linear-gradient(to top, rgb(78, 212, 253), rgb(22, 42, 46));
 }
 .form_heading {
-  color: #515151;
+  color: #ffffff;
 }
 .signup_form_input_style input {
   background-color: transparent;
@@ -45,25 +42,27 @@
   border: none !important;
 }
 
-.signin_options {
+.signup_options {
   text-align: right;
-  color: rgba(231, 128, 82, 1);
+  color: rgb(255, 255, 255);
   font-family: "Open Sans", sans-serif;
   font-style: italic;
 }
-.signin_btn {
+.signup_btn {
   background-image: linear-gradient(
     to right,
-    rgba(223, 108, 83, 1),
-    rgba(253, 187, 79, 1)
+    rgb(22, 42, 46),
+    rgb(78, 212, 253)
   );
-  color: white;
   font-family: "Roboto", sans-serif;
-}
-.signin_btn:hover {
   border: none !important;
   color: white !important;
 }
+/* .signup_btn:hover {
+  border: none !important;
+  color: white !important;
+} */
+
 .or_divider {
   color: #7d7979;
 }

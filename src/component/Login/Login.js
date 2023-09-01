@@ -54,16 +54,6 @@ const Login = () => {
     }
   };
 
-  // const signIn = async () => {
-  //   const { email, password } = user;
-  //   try {
-  //     await signInWithEmailAndPassword(email, password);
-  //     console.log("Signed in successfully");
-  //   } catch (error) {
-  //     console.error("Error signing in:", error);
-  //   }
-  // };
-
   const handleGoogleSignIn = () => {
     signInWithPopup(auth, provider)
       .then((result) => {
@@ -136,7 +126,7 @@ const Login = () => {
               </p>
             </div>
 
-            <Button block className="signin_btn " onClick={handleSignIn}>
+            <Button block className="signin_btn" onClick={handleSignIn}>
               Sign In
             </Button>
             <Divider className="or_divider">Or</Divider>
