@@ -1,0 +1,17 @@
+.card_list {
+  list-style: none;
+  padding-left: 10px;
+}
+
+.card_list li {
+  margin-top: 5px;
+}
+.menu_card {
+  border: 1px solid rgba(214, 211, 211, 1);
+  background-color: rgba(46, 125, 50, 0.08);
+  color: rgba(70, 66, 66, 1);
+}
+
+.card_list span {
+  margin-right: 8px;
+}

@@ -1,0 +1,17 @@
+.social_logo {
+  height: 90px;
+  width: 90px;
+}
+
+.social_media_card_logo {
+  display: flex;
+  align-items: center;
+}
+
+.social_media_card_logo span {
+  display: flex;
+}
+
+.card_detais {
+  display: flex;
+}
