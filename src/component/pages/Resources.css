@@ -1,0 +1,12 @@
+.news_img {
+  width: 100%;
+  border-radius: 0px 0px 0px 50px;
+}
+
+.resources_card {
+  box-shadow: 0px 0px 8px 0px rgba(46, 125, 50, 0.7);
+}
+.resources_card_text {
+  font-size: larger;
+  margin-top: 20px;
+}

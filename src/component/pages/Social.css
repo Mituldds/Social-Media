@@ -5,7 +5,7 @@
 
 .social_media_card_logo {
   display: flex;
-  align-items: center;
+  /* align-items: center;  */
 }
 
 .social_media_card_logo span {
@@ -13,5 +13,44 @@
 }
 
 .card_detais {
+  display: flex;
+}
+
+.social_details {
+  display: flex;
+}
+
+.social_details span {
+  margin-left: 10px;
+}
+
+.time_comment span {
+  margin-right: 10px;
+}
+
+.card_content {
+  display: flex;
+}
+.card_content p {
+  margin-left: 10px;
+}
+.follow_btn {
+  height: 100%;
+}
+
+.social_card {
+  height: 400px;
+  width: 350px;
+  border-radius: 15px;
+}
+.social_btn {
+  margin-top: 170px;
+  margin-left: 10px;
+}
+.social_btn Button {
+  background-color: rgba(46, 125, 50, 0.1);
+}
+
+.socialMedia_card {
   display: flex;
 }

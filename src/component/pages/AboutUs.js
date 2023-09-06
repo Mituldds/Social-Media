@@ -6,12 +6,11 @@ import { MdOutlineVisibility } from "react-icons/md";
 import { VscSymbolEnumMember } from "react-icons/vsc";
 import { MdCreateNewFolder } from "react-icons/md";
 import { AiFillTags } from "react-icons/ai";
-// import { MdOutlinePublic } from "react-icons/md";
 
 const AboutUs = () => {
   return (
     <>
-      <div className="About_card  card ">
+      <div className="About_card card my-4">
         <div className="card-body">
           <div className="about_us_container">
             <h5 className="text-success fw-bold mt-2 mx-2">About Us</h5>
@@ -70,10 +69,12 @@ const AboutUs = () => {
                 </li>
                 <Divider className="Aboutus_divider" />
                 <li>
-                  <span className="text-success">
-                    <MdOutlinePublic />
-                  </span>
-                  <span>Moderated by </span>
+                  <div>
+                    <span className="text-success">
+                      <MdOutlinePublic />
+                    </span>
+                    <span>Moderated by </span>
+                  </div>
                 </li>
                 <Divider className="Aboutus_divider" />
               </ul>
