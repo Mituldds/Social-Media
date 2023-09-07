@@ -1,0 +1,28 @@
+.modal_btn {
+  background-color: #1e8756;
+  color: white;
+  align-items: center;
+  width: 100%;
+  margin-top: 10px;
+}
+
+.post_img {
+  border: 5px solid black;
+  border-radius: 50%;
+}
+.post_title {
+  display: flex;
+}
+.post_title h5 {
+  margin-left: 12px;
+  margin-top: 2px;
+}
+
+.post_upload_img {
+  margin-left: 50px;
+}
+
+.post_description {
+  display: flex;
+  margin-top: 10px;
+}

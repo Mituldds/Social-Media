@@ -1,4 +1,5 @@
 import "./App.css";
+import "bootstrap/dist/css/bootstrap.min.css";
 import { Routes, Route } from "react-router-dom";
 import Login from "./component/Login/Login";
 import Signup from "./component/Signup/Signup";
@@ -7,6 +8,7 @@ import { ToastContainer, toast } from "react-toastify";
 import Home from "./component/pages/Home";
 import ForgotPassword from "./component/Login/ForgotPassword";
 import ResetPassword from "./component/Login/ResetPassword";
+// import Popup from "./component/pages/Popup";
 
 function App() {
   return (
@@ -17,6 +19,7 @@ function App() {
         <Route path="/signup" element={<Signup />} />
         <Route path="/forgot_password" element={<ForgotPassword />} />
         <Route path="/reset_password" element={<ResetPassword />} />
+        {/* <Route path="/popup" element={<Popup />} /> */}
       </Routes>
 
       <ToastContainer

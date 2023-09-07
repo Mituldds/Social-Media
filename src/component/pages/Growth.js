@@ -1,16 +1,14 @@
 import React, { useState } from "react";
 import { TbArrowsJoin } from "react-icons/tb";
-import { UserOutlined } from "@ant-design/icons";
 import "./Growth.css";
-import Modal from "./Modal";
-
+import Popup from "./Popup.js";
 const Growth = () => {
-  const [openModal, setOpenModal] = useState(false);
-  const handlePost = () => {
-    setOpenModal(true);
-    <Modal />;
-  };
+  const [show, setShow] = useState(false);
 
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
+
+  const addNewPost = () => {};
   return (
     <div className="card-body">
       <div className="card mt-3">
@@ -32,8 +30,8 @@ const Growth = () => {
             <button
               type="button"
               className="login_button btn btn-outline-success btn-sm"
-              // onClick={showModal}
-              onClick={handlePost}
+              onClick={handleShow}
+              // onClick={addNewPost}
             >
               New Post
             </button>
@@ -46,6 +44,7 @@ const Growth = () => {
           </div>
         </div>
       </div>
+      <Popup show={show} handleClose={handleClose} />
     </div>
   );
 };
