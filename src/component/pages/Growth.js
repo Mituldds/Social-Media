@@ -1,14 +1,13 @@
 import React, { useState } from "react";
 import { TbArrowsJoin } from "react-icons/tb";
 import "./Growth.css";
-import Popup from "./Popup.js";
+import Post from "./Post.js";
 const Growth = () => {
   const [show, setShow] = useState(false);
 
-  const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
+  const handleClose = () => setShow(false);
 
-  const addNewPost = () => {};
   return (
     <div className="card-body">
       <div className="card mt-3">
@@ -31,7 +30,6 @@ const Growth = () => {
               type="button"
               className="login_button btn btn-outline-success btn-sm"
               onClick={handleShow}
-              // onClick={addNewPost}
             >
               New Post
             </button>
@@ -44,7 +42,7 @@ const Growth = () => {
           </div>
         </div>
       </div>
-      <Popup show={show} handleClose={handleClose} />
+      <Post show={show} handleClose={handleClose} />
     </div>
   );
 };
