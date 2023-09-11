@@ -5,7 +5,6 @@
 
 .social_media_card_logo {
   display: flex;
-  /* align-items: center;  */
 }
 
 .social_media_card_logo span {
@@ -39,12 +38,12 @@
 }
 
 .social_card {
-  height: 400px;
-  width: 350px;
+  height: 350px;
+  width: 300px;
   border-radius: 15px;
 }
 .social_btn {
-  margin-top: 170px;
+  margin-top: 140px;
   margin-left: 10px;
 }
 .social_btn Button {

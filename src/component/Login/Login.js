@@ -45,7 +45,7 @@ const Login = () => {
     if (foundUsers?.length) {
       if (foundUsers[0].password == password) {
         toast.success("login successful");
-        navigate("/");
+        navigate("/home");
       } else {
         toast.error("password not matched");
       }

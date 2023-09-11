@@ -26,7 +26,9 @@ const Signup = () => {
     let name, value;
     name = event.target.name;
     value = event.target.value;
+
     setUserData({ ...userData, [name]: value });
+
     console.log("====================================");
     console.log(userData);
     console.log("====================================");

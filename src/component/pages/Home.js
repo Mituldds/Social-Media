@@ -14,13 +14,13 @@ const Home = () => {
       <Growth />
       <div className=" row container-fluid ">
         <div className="row">
-          <div className="col-md-2 mt-2">
+          <div className="col-md-2 mt-3">
             <Menu />
           </div>
-          <div className="col-md-7 ">
+          <div className="social_media col-md-7 ">
             <Social />
           </div>
-          <div className="col-md-3 mt-2">
+          <div className="col-md-3 ">
             <AboutUs />
             <Resources />
           </div>

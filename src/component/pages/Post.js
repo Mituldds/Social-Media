@@ -1,13 +1,17 @@
 import React, { useState } from "react";
+import { fireStore, storage } from "../../FirebaseConfig";
+import { getDownloadURL, ref } from "firebase/storage";
 
 // import ImgCrop from "antd-img-crop";
-import { Button, Modal, Mentions, Upload, Avatar, Input } from "antd";
+
+import { Button, Modal, Upload, Avatar, Input } from "antd";
 import { AntDesignOutlined } from "@ant-design/icons";
 import "./Post.css";
-import { fireStore } from "../../FirebaseConfig";
 import { v4 } from "uuid";
 import { uploadBytes } from "firebase/storage";
-const Popup = ({ show, handleClose }) => {
+import { addDoc, collection } from "firebase/firestore";
+
+const Post = ({ show, handleClose }) => {
   const [postData, setpostData] = useState({});
 
   const uploadImage = ({ fileList: newFileList }) => {
@@ -16,10 +20,37 @@ const Popup = ({ show, handleClose }) => {
       postImage: newFileList.slice(-1)[0].originFileObj,
     }));
   };
-  const handlePost = () => {
-    ref(imageDb, `files/${v4()}`);
-    uploadBytes(imgrefm, postData);
-    console.log(postData, "=============");
+
+  const handlePost = async () => {
+    try {
+      let data = postData;
+      // Generate a unique image reference
+      const imgRef = ref(storage, `files/${v4()}`);
+
+      // Upload the image to Firebase Storage
+      const image = await uploadBytes(imgRef, postData.postImage);
+
+      // Get the download URL for the uploaded image
+      const imageUrl = await getDownloadURL(imgRef);
+
+      // Add the imageURL to the postData object
+
+      data.postImage = imageUrl;
+      console.log(data.postImage);
+
+      // Add the data to Firestore
+      const docRef = await addDoc(collection(fireStore, "post"), data);
+
+      // Display a success message
+      alert("File successfully uploaded");
+
+      // Clear any previous errors if present
+      // setError(null);
+    } catch (error) {
+      // Handle any errors that may occur during the process
+      // setError("An error occurred while uploading the file.");
+      console.error("Error uploading file:", error);
+    }
   };
   return (
     <>
@@ -73,7 +104,7 @@ const Popup = ({ show, handleClose }) => {
           </div>
           <div className="post_description">
             <p>
-              <b>Description :</b>
+              <b>Post Title :</b>
             </p>
             &nbsp;
             <Input
@@ -83,7 +114,9 @@ const Popup = ({ show, handleClose }) => {
               onChange={(e) => {
                 setpostData((prev) => ({ ...prev, caption: e.target.value }));
               }}
+              // onChange={handlePost}
             />
+            <br />
           </div>
         </div>
       </Modal>
@@ -91,4 +124,4 @@ const Popup = ({ show, handleClose }) => {
   );
 };
 
-export default Popup;
+export default Post;
