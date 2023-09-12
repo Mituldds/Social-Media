@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { getDownloadURL, listAll, ref } from "firebase/storage";
-import { storage } from "../../FirebaseConfig";
+import { fireStore, storage } from "../../FirebaseConfig";
 import { GiStumpRegrowth } from "react-icons/gi";
 import { SiGooglecalendar } from "react-icons/si";
 import { RiMessage2Fill } from "react-icons/ri";
@@ -9,24 +9,37 @@ import { FaComment } from "react-icons/fa";
 import { FaShare } from "react-icons/fa";
 import { Tabs } from "antd";
 import "./Social.css";
-
 import { Button } from "antd";
+import { collection, getDocs } from "firebase/firestore";
 
 const Social = () => {
-  const [imgUrl, setImgUrl] = useState([]);
+  const [imageData, setImageData] = useState([]);
+
+  const getPosts = async () => {
+    const postsCollection = collection(fireStore, "post");
+
+    try {
+      const querySnapshot = await getDocs(postsCollection);
+
+      const posts = querySnapshot.docs.map((doc) => {
+        return {
+          id: doc.id,
+          ...doc.data(),
+        };
+      });
+
+      setImageData(posts);
+      console.log("Posts:", posts);
+      return;
+    } catch (error) {
+      console.error("Error getting posts: ", error);
+      throw error;
+    }
+  };
 
   useEffect(() => {
-    listAll(ref(storage, `files`)).then((imgs) => {
-      // console.log(imgs);
-      imgs.items.forEach((val) => {
-        getDownloadURL(val).then((url) => {
-          setImgUrl((data) => [...data, url]);
-        });
-      });
-    });
+    getPosts();
   }, []);
-
-  // console.log(imgUrl, "imgurl");
 
   return (
     <>
@@ -45,8 +58,9 @@ const Social = () => {
           })}
         />
       </div>
-      {imgUrl.map((dataVal) => (
-        <div>
+
+      {imageData.map((image, index) => (
+        <div key={index}>
           <div className="social_media_card_logo my-4">
             <img
               className="social_logo col-2"
@@ -67,19 +81,21 @@ const Social = () => {
 
                 <p className="time_comment">
                   <SiGooglecalendar className="text-success me-2" />
-                  March 13, 2021 at 5:16 PM &nbsp;
+                  {image.timestamp} &nbsp;
                   {/* <RiMessage2Fill className="text-success me-2" />
                   89 Comments */}
                 </p>
               </div>
 
               <div className="socialMedia_card card-body">
-                <img
-                  key={dataVal.id}
-                  className="social_card card"
-                  src={dataVal}
-                  alt="..."
-                />
+                <div>
+                  <p>{image.caption}</p>
+                  <img
+                    className="social_card card"
+                    src={image.postImage}
+                    alt={image.caption}
+                  />
+                </div>
 
                 <div className="social_btn">
                   <Button shape="circle">

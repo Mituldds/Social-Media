@@ -1,18 +1,16 @@
 import React, { useState } from "react";
+import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
 import { fireStore, storage } from "../../FirebaseConfig";
-import { getDownloadURL, ref } from "firebase/storage";
-
+import { addDoc, collection } from "firebase/firestore";
 // import ImgCrop from "antd-img-crop";
-
 import { Button, Modal, Upload, Avatar, Input } from "antd";
 import { AntDesignOutlined } from "@ant-design/icons";
-import "./Post.css";
 import { v4 } from "uuid";
-import { uploadBytes } from "firebase/storage";
-import { addDoc, collection } from "firebase/firestore";
+import "./Post.css";
 
 const Post = ({ show, handleClose }) => {
   const [postData, setpostData] = useState({});
+  const [postContent, setPostContent] = useState("");
 
   const uploadImage = ({ fileList: newFileList }) => {
     setpostData((prev) => ({
@@ -22,6 +20,10 @@ const Post = ({ show, handleClose }) => {
   };
 
   const handlePost = async () => {
+    // Get the current date and time
+    const currentDate = new Date();
+    const formattedDate = currentDate.toLocaleString();
+
     try {
       let data = postData;
       // Generate a unique image reference
@@ -36,6 +38,7 @@ const Post = ({ show, handleClose }) => {
       // Add the imageURL to the postData object
 
       data.postImage = imageUrl;
+      data.timestamp = formattedDate;
       console.log(data.postImage);
 
       // Add the data to Firestore
@@ -43,6 +46,7 @@ const Post = ({ show, handleClose }) => {
 
       // Display a success message
       alert("File successfully uploaded");
+      handleClose();
 
       // Clear any previous errors if present
       // setError(null);
@@ -114,7 +118,6 @@ const Post = ({ show, handleClose }) => {
               onChange={(e) => {
                 setpostData((prev) => ({ ...prev, caption: e.target.value }));
               }}
-              // onChange={handlePost}
             />
             <br />
           </div>
