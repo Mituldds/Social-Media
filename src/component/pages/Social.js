@@ -7,7 +7,7 @@ import { RiMessage2Fill } from "react-icons/ri";
 import { AiFillHeart } from "react-icons/ai";
 import { FaComment } from "react-icons/fa";
 import { FaShare } from "react-icons/fa";
-import { Tabs } from "antd";
+import { Input, Tabs } from "antd";
 import "./Social.css";
 import { Button } from "antd";
 import { collection, getDocs } from "firebase/firestore";
@@ -101,7 +101,8 @@ const Social = () => {
                   <Button shape="circle">
                     <AiFillHeart />
                   </Button>
-                  <p>94.4K</p>
+                  <p>45K</p>
+
                   <Button shape="circle">
                     <FaComment />
                   </Button>

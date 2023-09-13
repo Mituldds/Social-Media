@@ -35,16 +35,19 @@ const Login = () => {
     const q = query(usersRef, where("email", "==", email));
     const querySnapshot = await getDocs(q);
 
-    const foundUsers = [];
+    let foundUsers = [];
     querySnapshot.forEach((doc) => {
-      foundUsers.push(doc.data());
-    });
+      foundUsers.push({ ...doc.data(), id: doc.id });
 
-    console.log(foundUsers, "ffdfdf");
+      console.log(foundUsers, "===========");
+    });
 
     if (foundUsers?.length) {
       if (foundUsers[0].password == password) {
         toast.success("login successful");
+
+        localStorage.setItem("user", JSON.stringify(foundUsers[0]));
+
         navigate("/home");
       } else {
         toast.error("password not matched");
@@ -59,7 +62,7 @@ const Login = () => {
       .then((result) => {
         const firebaseUser = result.user;
         setUser(firebaseUser);
-        navigate("/");
+        navigate("/home");
         toast.success("Successfully signed in with Google");
       })
       .catch((error) => {

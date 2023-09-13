@@ -39,6 +39,7 @@ const Post = ({ show, handleClose }) => {
 
       data.postImage = imageUrl;
       data.timestamp = formattedDate;
+      data = { ...data, ...JSON.parse(localStorage.getItem("user")) };
       console.log(data.postImage);
 
       // Add the data to Firestore
