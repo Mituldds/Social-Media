@@ -7,6 +7,7 @@ import { Button, Modal, Upload, Avatar, Input } from "antd";
 import { AntDesignOutlined } from "@ant-design/icons";
 import { v4 } from "uuid";
 import "./Post.css";
+import { toast } from "react-toastify";
 
 const Post = ({ show, handleClose }) => {
   const [postData, setpostData] = useState({});
@@ -46,7 +47,7 @@ const Post = ({ show, handleClose }) => {
       const docRef = await addDoc(collection(fireStore, "post"), data);
 
       // Display a success message
-      alert("File successfully uploaded");
+      toast.success("File successfully uploaded");
       handleClose();
 
       // Clear any previous errors if present

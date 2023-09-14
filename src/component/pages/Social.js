@@ -3,7 +3,7 @@ import { getDownloadURL, listAll, ref } from "firebase/storage";
 import { fireStore, storage } from "../../FirebaseConfig";
 import { GiStumpRegrowth } from "react-icons/gi";
 import { SiGooglecalendar } from "react-icons/si";
-import { RiMessage2Fill } from "react-icons/ri";
+import { RiMessage2Fill, RiSettings3Fill } from "react-icons/ri";
 import { AiFillHeart } from "react-icons/ai";
 import { FaComment } from "react-icons/fa";
 import { FaShare } from "react-icons/fa";
@@ -14,6 +14,15 @@ import { collection, getDocs } from "firebase/firestore";
 
 const Social = () => {
   const [imageData, setImageData] = useState([]);
+  const [likes, setLikes] = useState(0);
+  const [comments, setComments] = useState([]);
+
+  const handleLikes = () => {
+    setLikes(likes + 1);
+  };
+  const handleComments = (commentText) => {
+    setComments([...comments, commentText]);
+  };
 
   const getPosts = async () => {
     const postsCollection = collection(fireStore, "post");
@@ -98,15 +107,22 @@ const Social = () => {
                 </div>
 
                 <div className="social_btn">
-                  <Button shape="circle">
+                  <Button shape="circle" onClick={handleLikes}>
                     <AiFillHeart />
                   </Button>
-                  <p>45K</p>
+                  <p>{likes}</p>
+                  {/* <p>45K</p> */}
 
-                  <Button shape="circle">
+                  <Button shape="circle" onClick={handleComments}>
                     <FaComment />
                   </Button>
-                  <p>1154</p>
+                  <ul>
+                    {comments.map((comment, index) => {
+                      <li key={index}>{comment}</li>;
+                    })}
+                  </ul>
+                  <input type="text" placeholder="Add a Comment" />
+                  {/* <p>1154</p> */}
                   <Button shape="circle">
                     <FaShare />
                   </Button>

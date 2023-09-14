@@ -9,3 +9,8 @@
 .signup_button {
   padding: 4px 30px 4px 30px;
 }
+
+.navbar_user_logo {
+  height: 40px;
+  width: 40px;
+}
