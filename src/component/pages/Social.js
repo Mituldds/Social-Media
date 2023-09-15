@@ -1,13 +1,10 @@
 import React, { useEffect, useState } from "react";
-import { getDownloadURL, listAll, ref } from "firebase/storage";
 import { fireStore, storage } from "../../FirebaseConfig";
-import { GiStumpRegrowth } from "react-icons/gi";
 import { SiGooglecalendar } from "react-icons/si";
-import { RiMessage2Fill, RiSettings3Fill } from "react-icons/ri";
 import { AiFillHeart } from "react-icons/ai";
 import { FaComment } from "react-icons/fa";
 import { FaShare } from "react-icons/fa";
-import { Input, Tabs } from "antd";
+import { Tabs } from "antd";
 import "./Social.css";
 import { Button } from "antd";
 import { collection, getDocs } from "firebase/firestore";
@@ -16,6 +13,8 @@ const Social = () => {
   const [imageData, setImageData] = useState([]);
   const [likes, setLikes] = useState(0);
   const [comments, setComments] = useState([]);
+
+  const [user, setUser] = useState();
 
   const handleLikes = () => {
     setLikes(likes + 1);
@@ -26,7 +25,6 @@ const Social = () => {
 
   const getPosts = async () => {
     const postsCollection = collection(fireStore, "post");
-
     try {
       const querySnapshot = await getDocs(postsCollection);
 
@@ -39,6 +37,7 @@ const Social = () => {
 
       setImageData(posts);
       console.log("Posts:", posts);
+
       return;
     } catch (error) {
       console.error("Error getting posts: ", error);

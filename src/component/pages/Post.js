@@ -11,7 +11,6 @@ import { toast } from "react-toastify";
 
 const Post = ({ show, handleClose }) => {
   const [postData, setpostData] = useState({});
-  const [postContent, setPostContent] = useState("");
 
   const uploadImage = ({ fileList: newFileList }) => {
     setpostData((prev) => ({
@@ -41,7 +40,7 @@ const Post = ({ show, handleClose }) => {
       data.postImage = imageUrl;
       data.timestamp = formattedDate;
       data = { ...data, ...JSON.parse(localStorage.getItem("user")) };
-      console.log(data.postImage);
+      // console.log(data.postImage);
 
       // Add the data to Firestore
       const docRef = await addDoc(collection(fireStore, "post"), data);

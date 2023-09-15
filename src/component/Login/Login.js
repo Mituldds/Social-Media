@@ -37,9 +37,10 @@ const Login = () => {
 
     let foundUsers = [];
     querySnapshot.forEach((doc) => {
+      const userData = doc.data();
       foundUsers.push({ ...doc.data(), id: doc.id });
 
-      console.log(foundUsers, "===========");
+      console.log(foundUsers, "=====scdsdsds======");
     });
 
     if (foundUsers?.length) {
