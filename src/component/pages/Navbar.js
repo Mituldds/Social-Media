@@ -18,7 +18,7 @@ const Navbar = () => {
             </button> */}
             <img
               className="navbar_user_logo"
-              src="/Images/pngegg.png"
+              src="/Images/img13.jpg"
               alt="logo"
             />{" "}
             <button

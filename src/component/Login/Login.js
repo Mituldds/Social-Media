@@ -8,8 +8,7 @@ import { FaFacebook, FaLock } from "react-icons/fa";
 import { TbMailFilled } from "react-icons/tb";
 import { collection, getDocs, query, where } from "firebase/firestore";
 import { fireStore, auth, provider } from "../../FirebaseConfig";
-import { signInWithPopup, signInWithEmailAndPassword } from "firebase/auth";
-
+import { signInWithPopup } from "firebase/auth";
 import "./Login.css";
 
 const Login = () => {

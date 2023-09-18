@@ -1,26 +1,49 @@
 import React, { useEffect, useState } from "react";
-import { fireStore, storage } from "../../FirebaseConfig";
+import {
+  doc,
+  addDoc,
+  getDocs,
+  updateDoc,
+  increment,
+  collection,
+  serverTimestamp,
+} from "firebase/firestore";
+import { fireStore } from "../../FirebaseConfig";
 import { SiGooglecalendar } from "react-icons/si";
 import { AiFillHeart } from "react-icons/ai";
 import { FaComment } from "react-icons/fa";
 import { FaShare } from "react-icons/fa";
 import { Tabs } from "antd";
-import "./Social.css";
 import { Button } from "antd";
-import { collection, getDocs } from "firebase/firestore";
+import "./Social.css";
 
 const Social = () => {
   const [imageData, setImageData] = useState([]);
+
   const [likes, setLikes] = useState(0);
-  const [comments, setComments] = useState([]);
 
-  const [user, setUser] = useState();
-
-  const handleLikes = () => {
-    setLikes(likes + 1);
+  const handleLike = async (postId) => {
+    const postRef = doc(fireStore, "posts", postId);
+    await updateDoc(postRef, {
+      likes: increment(1), // Assuming you have a field 'likes' in your Firestore document.
+    });
   };
-  const handleComments = (commentText) => {
-    setComments([...comments, commentText]);
+
+  const handleComment = async (postId, commentText) => {
+    const commentsCollection = collection(fireStore, "comments");
+    await addDoc(commentsCollection, {
+      postId,
+      text: commentText,
+      timestamp: serverTimestamp(), // You may want to add a timestamp to each comment.
+    });
+  };
+
+  const handleLikeClick = (postId) => {
+    handleLike(postId);
+  };
+
+  const handleCommentClick = (commentText) => {
+    handleComment(commentText);
   };
 
   const getPosts = async () => {
@@ -67,8 +90,8 @@ const Social = () => {
         />
       </div>
 
-      {imageData.map((image, index) => (
-        <div key={index}>
+      {imageData.map((image) => (
+        <div key={image.id}>
           <div className="social_media_card_logo my-4">
             <img
               className="social_logo col-2"
@@ -106,20 +129,19 @@ const Social = () => {
                 </div>
 
                 <div className="social_btn">
-                  <Button shape="circle" onClick={handleLikes}>
+                  <Button
+                    shape="circle"
+                    onClick={() => handleLikeClick(image.id)}
+                  >
                     <AiFillHeart />
                   </Button>
                   <p>{likes}</p>
                   {/* <p>45K</p> */}
 
-                  <Button shape="circle" onClick={handleComments}>
+                  <Button shape="circle" onClick={handleCommentClick}>
                     <FaComment />
                   </Button>
-                  <ul>
-                    {comments.map((comment, index) => {
-                      <li key={index}>{comment}</li>;
-                    })}
-                  </ul>
+
                   <input type="text" placeholder="Add a Comment" />
                   {/* <p>1154</p> */}
                   <Button shape="circle">
@@ -139,5 +161,4 @@ const Social = () => {
     </>
   );
 };
-
 export default Social;
