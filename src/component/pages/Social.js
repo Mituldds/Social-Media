@@ -59,6 +59,7 @@ const Social = () => {
       });
 
       setImageData(posts);
+
       console.log("Posts:", posts);
 
       return;

@@ -13,7 +13,6 @@ import "./Login.css";
 
 const Login = () => {
   const navigate = useNavigate();
-
   const [user, setUser] = useState({
     email: "",
     password: "",
@@ -39,7 +38,7 @@ const Login = () => {
       const userData = doc.data();
       foundUsers.push({ ...doc.data(), id: doc.id });
 
-      console.log(foundUsers, "=====scdsdsds======");
+      // console.log(foundUsers, "=====scdsdsds======");
     });
 
     if (foundUsers?.length) {

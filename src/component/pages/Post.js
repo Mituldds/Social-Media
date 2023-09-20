@@ -39,7 +39,9 @@ const Post = ({ show, handleClose }) => {
 
       data.postImage = imageUrl;
       data.timestamp = formattedDate;
-      data = { ...data, ...JSON.parse(localStorage.getItem("user")) };
+      const { id, email, name } = JSON.parse(localStorage.getItem("user"));
+      data = { ...data, email, name, userId: id };
+
       // console.log(data.postImage);
 
       // Add the data to Firestore
@@ -54,9 +56,11 @@ const Post = ({ show, handleClose }) => {
     } catch (error) {
       // Handle any errors that may occur during the process
       // setError("An error occurred while uploading the file.");
-      console.error("Error uploading file:", error);
+      // console.error("Error uploading file:" error);
+      console.error("Error Uploading File: ", error);
     }
   };
+
   return (
     <>
       <Modal
