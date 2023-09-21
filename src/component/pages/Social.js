@@ -11,16 +11,15 @@ import {
 import { fireStore } from "../../FirebaseConfig";
 import { SiGooglecalendar } from "react-icons/si";
 import { AiFillHeart } from "react-icons/ai";
-import { FaComment } from "react-icons/fa";
+import { FaComment, FaSync } from "react-icons/fa";
 import { FaShare } from "react-icons/fa";
-import { Tabs } from "antd";
 import { Button } from "antd";
+import { Tabs } from "antd";
 import "./Social.css";
 
 const Social = () => {
   const [imageData, setImageData] = useState([]);
-
-  const [likes, setLikes] = useState(0);
+  const [likes, setLikes] = useState([]);
 
   const handleLike = async (postId) => {
     const postRef = doc(fireStore, "posts", postId);
@@ -38,12 +37,31 @@ const Social = () => {
     });
   };
 
-  const handleLikeClick = (postId) => {
-    handleLike(postId);
+  const handleLikeClick = async (postId) => {
+    // handleLike(postId);
+    // console.log(postId);
+
+    try {
+      await handleLike(postId);
+      // Update the state to reflect the new like count
+      setImageData((prevState) =>
+        prevState.map((image) =>
+          image.id === postId ? { ...image, likes: image.likes + 1 } : image
+        )
+      );
+    } catch (error) {
+      console.error("Error Like post: ", error);
+    }
   };
 
-  const handleCommentClick = (commentText) => {
-    handleComment(commentText);
+  const handleCommentClick = async (postId, commentText) => {
+    // handleComment(commentText);
+    try {
+      await handleComment(postId, commentText);
+      // Optionally, you can update the state to display the new comment immediately.
+    } catch (error) {
+      console.error("Error commenting on post: ", error);
+    }
   };
 
   const getPosts = async () => {
@@ -59,9 +77,7 @@ const Social = () => {
       });
 
       setImageData(posts);
-
       console.log("Posts:", posts);
-
       return;
     } catch (error) {
       console.error("Error getting posts: ", error);
