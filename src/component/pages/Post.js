@@ -8,6 +8,7 @@ import { AntDesignOutlined } from "@ant-design/icons";
 import { v4 } from "uuid";
 import "./Post.css";
 import { toast } from "react-toastify";
+import { SiPodcastaddict } from "react-icons/si";
 
 const Post = ({ show, handleClose }) => {
   const [postData, setpostData] = useState({});
@@ -45,7 +46,7 @@ const Post = ({ show, handleClose }) => {
       // console.log(data.postImage);
 
       // Add the data to Firestore
-      const docRef = await addDoc(collection(fireStore, "post"), data);
+      const docRef = await addDoc(collection(fireStore, "posts"), data);
 
       // Display a success message
       toast.success("File successfully uploaded");

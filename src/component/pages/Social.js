@@ -8,10 +8,11 @@ import {
   collection,
   serverTimestamp,
 } from "firebase/firestore";
+
 import { fireStore } from "../../FirebaseConfig";
 import { SiGooglecalendar } from "react-icons/si";
 import { AiFillHeart } from "react-icons/ai";
-import { FaComment, FaSync } from "react-icons/fa";
+import { FaComment } from "react-icons/fa";
 import { FaShare } from "react-icons/fa";
 import { Button } from "antd";
 import { Tabs } from "antd";
@@ -19,9 +20,9 @@ import "./Social.css";
 
 const Social = () => {
   const [imageData, setImageData] = useState([]);
-  const [likes, setLikes] = useState([]);
 
   const handleLike = async (postId) => {
+    const like = [];
     const postRef = doc(fireStore, "posts", postId);
     await updateDoc(postRef, {
       likes: increment(1), // Assuming you have a field 'likes' in your Firestore document.
@@ -29,7 +30,7 @@ const Social = () => {
   };
 
   const handleComment = async (postId, commentText) => {
-    const commentsCollection = collection(fireStore, "comments");
+    const commentsCollection = collection(fireStore, postId);
     await addDoc(commentsCollection, {
       postId,
       text: commentText,
@@ -38,9 +39,6 @@ const Social = () => {
   };
 
   const handleLikeClick = async (postId) => {
-    // handleLike(postId);
-    // console.log(postId);
-
     try {
       await handleLike(postId);
       // Update the state to reflect the new like count
@@ -152,7 +150,7 @@ const Social = () => {
                   >
                     <AiFillHeart />
                   </Button>
-                  <p>{likes}</p>
+                  {/* <p>{likes}</p> */}
                   {/* <p>45K</p> */}
 
                   <Button shape="circle" onClick={handleCommentClick}>
