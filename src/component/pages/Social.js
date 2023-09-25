@@ -7,6 +7,7 @@ import {
   increment,
   collection,
   serverTimestamp,
+  getDoc,
 } from "firebase/firestore";
 
 import { fireStore } from "../../FirebaseConfig";
@@ -40,15 +41,25 @@ const Social = () => {
 
   const handleLikeClick = async (postId) => {
     try {
-      await handleLike(postId);
-      // Update the state to reflect the new like count
-      setImageData((prevState) =>
-        prevState.map((image) =>
-          image.id === postId ? { ...image, likes: image.likes + 1 } : image
-        )
-      );
+      const postRef = doc(fireStore, "posts", postId);
+      const postSnapshot = await getDoc(postRef);
+
+      if (postSnapshot.exists()) {
+        await handleLike(postId);
+        // Update the state to reflect the new like count
+        setImageData((prevState) =>
+          prevState.map((post) =>
+            post.id === postId ? { ...post, likes: post.likes + 1 } : post
+          )
+        );
+      } else {
+        // Document does not exist, handle it gracefully
+        console.warn(`Post with ID ${postId} does not exist.`);
+        // You can choose to display a message to the user or take other actions.
+      }
     } catch (error) {
       console.error("Error Like post: ", error);
+      // Handle other errors here as needed.
     }
   };
 
@@ -150,7 +161,7 @@ const Social = () => {
                   >
                     <AiFillHeart />
                   </Button>
-                  {/* <p>{likes}</p> */}
+                  <p>{image.likes} Likes</p>
                   {/* <p>45K</p> */}
 
                   <Button shape="circle" onClick={handleCommentClick}>
