@@ -37,7 +37,7 @@ const Resources = () => {
               <div className="card-body">
                 <img
                   className="news_img "
-                  src={data.image.thumbnail.contentUrl}
+                  src={data?.image?.thumbnail?.contentUrl}
                   alt="News"
                 />
                 <div className="resources_card_text">
@@ -55,26 +55,4 @@ const Resources = () => {
 export default Resources;
 
 // Marketing Channels that consistently work for founder.
-// I’ve anlayzed all 479 founder interview on indie Hackers & uncoverd the mar......
-
-// import axios from "axios";
-
-// const options = {
-//   method: 'GET',
-//   url: 'https://bing-news-search1.p.rapidapi.com/news',
-//   params: {
-//     safeSearch: 'Off',
-//     textormat: 'Raw'
-//   },
-// headers: {
-//   'X-BingApis-SDK': 'true',
-//   'X-RapidAPI-Key': 'b05e0873a7msh014360ebd351fa9p137150jsnd9623429f690',
-//   'X-RapidAPI-Host': 'bing-news-search1.p.rapidapi.com'
-// }
-// };
-// try {
-//   const response = await axios.request(options);
-//   console.log(response.data);
-// } catch (error) {
-//   console.error(error);
-// }
+// I’ve anlayzed all 479 founder interview on indie Hackers & uncoverd the mar......s

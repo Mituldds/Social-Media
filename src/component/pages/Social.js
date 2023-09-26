@@ -8,6 +8,8 @@ import {
   collection,
   serverTimestamp,
   getDoc,
+  query,
+  where,
 } from "firebase/firestore";
 
 import { fireStore } from "../../FirebaseConfig";
@@ -21,37 +23,39 @@ import "./Social.css";
 
 const Social = () => {
   const [imageData, setImageData] = useState([]);
-
-  const handleLike = async (postId) => {
-    const like = [];
-    const postRef = doc(fireStore, "posts", postId);
-    await updateDoc(postRef, {
-      likes: increment(1), // Assuming you have a field 'likes' in your Firestore document.
-    });
-  };
-
-  const handleComment = async (postId, commentText) => {
-    const commentsCollection = collection(fireStore, postId);
-    await addDoc(commentsCollection, {
-      postId,
-      text: commentText,
-      timestamp: serverTimestamp(), // You may want to add a timestamp to each comment.
-    });
-  };
+  const [comments, setComments] = useState({});
+  const userId = JSON.parse(localStorage.getItem("user")).id;
 
   const handleLikeClick = async (postId) => {
     try {
-      const postRef = doc(fireStore, "posts", postId);
+      const postRef = doc(fireStore, "post", postId);
       const postSnapshot = await getDoc(postRef);
 
       if (postSnapshot.exists()) {
-        await handleLike(postId);
-        // Update the state to reflect the new like count
-        setImageData((prevState) =>
-          prevState.map((post) =>
-            post.id === postId ? { ...post, likes: post.likes + 1 } : post
-          )
-        );
+        const updatedImageData = imageData.map((post) => {
+          if (post.id === postId) {
+            // const userId = "123456"; // Replace with your actual user ID logic
+            const likedBy = post.likedBy || [];
+
+            if (!likedBy.includes(userId)) {
+              likedBy.push(userId);
+            } else {
+              // If the user already liked, unlike the post
+              likedBy.splice(likedBy.indexOf(userId), 1);
+            }
+
+            // Update the like count and likedBy array in the post data
+            return { ...post, likedBy };
+          }
+          return post;
+        });
+
+        setImageData(updatedImageData);
+
+        // Update Firestore with the updated likedBy array
+        await updateDoc(postRef, {
+          likedBy: updatedImageData.find((post) => post.id === postId).likedBy,
+        });
       } else {
         // Document does not exist, handle it gracefully
         console.warn(`Post with ID ${postId} does not exist.`);
@@ -63,15 +67,65 @@ const Social = () => {
     }
   };
 
-  const handleCommentClick = async (postId, commentText) => {
-    // handleComment(commentText);
+  const getComments = async (postId) => {
+    const commentsCollection = collection(fireStore, "comments");
+    const q = query(commentsCollection, where("postId", "==", postId));
     try {
-      await handleComment(postId, commentText);
-      // Optionally, you can update the state to display the new comment immediately.
+      const querySnapshot = await getDocs(q);
+
+      const postComments = querySnapshot.docs.map((doc) => {
+        return {
+          id: doc.id,
+          ...doc.data(),
+        };
+      });
+
+      setComments((prevComments) => ({
+        ...prevComments,
+        [postId]: postComments,
+      }));
     } catch (error) {
-      console.error("Error commenting on post: ", error);
+      console.error("Error getting comments: ", error);
     }
   };
+
+  const addComment = async (postId, commentText) => {
+    const commentsCollection = collection(fireStore, "comments");
+
+    try {
+      // Add a new comment document to the "comments" collection
+      await addDoc(commentsCollection, {
+        postId,
+        text: commentText,
+        userId, // You can retrieve the user ID in a similar way to how you retrieve it for liking posts
+        timestamp: serverTimestamp(),
+      });
+
+      // After adding the comment, refresh the comments for the post
+      await getComments(postId);
+    } catch (error) {
+      console.error("Error adding comment: ", error);
+    }
+  };
+
+  // const handleComment = async (postId, commentText) => {
+  //   const commentsCollection = collection(fireStore, postId);
+  //   await addDoc(commentsCollection, {
+  //     postId,
+  //     text: commentText,
+  //     timestamp: serverTimestamp(), // You may want to add a timestamp to each comment.
+  //   });
+  // };
+
+  // const handleCommentClick = async (postId, commentText) => {
+  //   // handleComment(commentText);
+  //   try {
+  //     await handleComment(postId, commentText);
+  //     // Optionally, you can update the state to display the new comment immediately.
+  //   } catch (error) {
+  //     console.error("Error commenting on post: ", error);
+  //   }
+  // };
 
   const getPosts = async () => {
     const postsCollection = collection(fireStore, "post");
@@ -84,6 +138,11 @@ const Social = () => {
           ...doc.data(),
         };
       });
+
+      // Fetch comments for each post
+      for (const post of posts) {
+        await getComments(post.id);
+      }
 
       setImageData(posts);
       console.log("Posts:", posts);
@@ -157,19 +216,47 @@ const Social = () => {
                 <div className="social_btn">
                   <Button
                     shape="circle"
+                    style={{
+                      color: image?.likedBy?.includes(userId) ? "red" : null,
+                    }}
                     onClick={() => handleLikeClick(image.id)}
                   >
                     <AiFillHeart />
                   </Button>
-                  <p>{image.likes} Likes</p>
+                  <p>{image?.likedBy?.length || 0} Likes</p>
                   {/* <p>45K</p> */}
 
-                  <Button shape="circle" onClick={handleCommentClick}>
+                  {/* <Button shape="circle" onClick={handleCommentClick}>
                     <FaComment />
                   </Button>
 
                   <input type="text" placeholder="Add a Comment" />
-                  {/* <p>1154</p> */}
+                  <p>1154</p> */}
+
+                  {comments[image.id] && (
+                    <div>
+                      {comments[image.id].map((comment) => (
+                        <div key={comment.id}>
+                          <p>{comment.text}</p>
+                          {/* Add other comment information as needed */}
+                        </div>
+                      ))}
+                    </div>
+                  )}
+
+                  <div>
+                    <input
+                      type="text"
+                      placeholder="Add a Comment"
+                      onKeyDown={(e) => {
+                        if (e.key === "Enter") {
+                          addComment(image.id, e.target.value);
+                          e.target.value = "";
+                        }
+                      }}
+                    />
+                  </div>
+
                   <Button shape="circle">
                     <FaShare />
                   </Button>
