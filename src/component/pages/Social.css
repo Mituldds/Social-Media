@@ -53,3 +53,27 @@
 .socialMedia_card {
   display: flex;
 }
+
+.Comment_Input {
+  border: none !important;
+  background-color: #d2e5c6;
+  border-radius: 8px;
+  margin: auto;
+  width: 100%;
+  margin-top: 10px;
+  height: 40px;
+}
+
+.Comment_Box {
+  overflow: scroll;
+  height: 100px;
+  margin-top: 10px;
+}
+
+.Commnet_P {
+  margin: 0px;
+}
+
+.Comment_btn {
+  align-items: center;
+}

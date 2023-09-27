@@ -24,6 +24,11 @@ import "./Social.css";
 const Social = () => {
   const [imageData, setImageData] = useState([]);
   const [comments, setComments] = useState({});
+  const [isHidden, setIsHidden] = useState(false);
+
+  const toggleVisibility = () => {
+    setIsHidden(!isHidden);
+  };
   const userId = JSON.parse(localStorage.getItem("user")).id;
 
   const handleLikeClick = async (postId) => {
@@ -187,19 +192,9 @@ const Social = () => {
               <h5>11 Marketing Channels That Consistently Work for Founders</h5>
 
               <div className="social_details row container ">
-                {/* <div className="card_content">
-                  Zerotousers
-                  <span className="text-success">
-                    <GiStumpRegrowth />
-                  </span>
-                  <p>Growth & User Acquisition</p>
-                </div> */}
-
                 <p className="time_comment">
                   <SiGooglecalendar className="text-success me-2" />
                   {image.timestamp} &nbsp;
-                  {/* <RiMessage2Fill className="text-success me-2" />
-                  89 Comments */}
                 </p>
               </div>
 
@@ -211,6 +206,31 @@ const Social = () => {
                     src={image.postImage}
                     alt={image.caption}
                   />
+
+                  {isHidden && (
+                    <div className="Comment_Box">
+                      <input
+                        className="Comment_Input"
+                        type="text"
+                        placeholder="Add a comment"
+                        onKeyDown={(e) => {
+                          if (e.key === "Enter") {
+                            addComment(image.id, e.target.value);
+                            e.target.value = "";
+                          }
+                        }}
+                      />
+
+                      {comments[image.id].map((comment) => (
+                        <div key={comment.id}>
+                          <div>
+                            <p className="Commnet_P">{comment.text}</p>
+                          </div>
+                          {/* Add other comment information as needed */}
+                        </div>
+                      ))}
+                    </div>
+                  )}
                 </div>
 
                 <div className="social_btn">
@@ -224,43 +244,21 @@ const Social = () => {
                     <AiFillHeart />
                   </Button>
                   <p>{image?.likedBy?.length || 0} Likes</p>
-                  {/* <p>45K</p> */}
-
-                  {/* <Button shape="circle" onClick={handleCommentClick}>
-                    <FaComment />
-                  </Button>
-
-                  <input type="text" placeholder="Add a Comment" />
-                  <p>1154</p> */}
 
                   {comments[image.id] && (
-                    <div>
-                      {comments[image.id].map((comment) => (
-                        <div key={comment.id}>
-                          <p>{comment.text}</p>
-                          {/* Add other comment information as needed */}
-                        </div>
-                      ))}
+                    <div className="Comment_btn">
+                      <Button shape="circle" onClick={toggleVisibility}>
+                        <FaComment />
+                      </Button>
+                      <p>{comments[image.id].length} Comments</p>
                     </div>
                   )}
-
-                  <div>
-                    <input
-                      type="text"
-                      placeholder="Add a Comment"
-                      onKeyDown={(e) => {
-                        if (e.key === "Enter") {
-                          addComment(image.id, e.target.value);
-                          e.target.value = "";
-                        }
-                      }}
-                    />
+                  <div className="Post_share_btn">
+                    <Button shape="circle">
+                      <FaShare />
+                    </Button>
+                    <p>378</p>
                   </div>
-
-                  <Button shape="circle">
-                    <FaShare />
-                  </Button>
-                  <p>378</p>
                 </div>
               </div>
             </div>
