@@ -1,9 +1,14 @@
 import React from "react";
 import "./Navbar.css";
 import { Avatar } from "antd";
+import { useNavigate } from "react-router-dom";
 
 const Navbar = () => {
+  const navigate = useNavigate();
   const user = JSON.parse(localStorage.getItem("user"));
+  const handleProfilePage = () => {
+    navigate("/ProfilePage");
+  };
 
   return (
     <nav className="header navbar navbar-expand-lg navbar-light bg-light">
@@ -32,7 +37,7 @@ const Navbar = () => {
                 verticalAlign: "middle",
               }}
               size="large"
-              // gap={gap}
+              onClick={handleProfilePage}
             >
               {user.email.substring(0, 2).toUpperCase()}
             </Avatar>

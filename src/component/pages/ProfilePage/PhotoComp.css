@@ -1,0 +1,12 @@
+.profile_tab {
+  border: 1px solid black;
+  border-radius: 16px;
+}
+.User_Logo {
+  display: flex;
+  justify-content: space-around;
+  width: 28%;
+  margin: 0px;
+  align-items: center;
+  text-align: center;
+}

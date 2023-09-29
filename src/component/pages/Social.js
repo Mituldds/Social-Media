@@ -113,25 +113,6 @@ const Social = () => {
     }
   };
 
-  // const handleComment = async (postId, commentText) => {
-  //   const commentsCollection = collection(fireStore, postId);
-  //   await addDoc(commentsCollection, {
-  //     postId,
-  //     text: commentText,
-  //     timestamp: serverTimestamp(), // You may want to add a timestamp to each comment.
-  //   });
-  // };
-
-  // const handleCommentClick = async (postId, commentText) => {
-  //   // handleComment(commentText);
-  //   try {
-  //     await handleComment(postId, commentText);
-  //     // Optionally, you can update the state to display the new comment immediately.
-  //   } catch (error) {
-  //     console.error("Error commenting on post: ", error);
-  //   }
-  // };
-
   const getPosts = async () => {
     const postsCollection = collection(fireStore, "post");
     try {

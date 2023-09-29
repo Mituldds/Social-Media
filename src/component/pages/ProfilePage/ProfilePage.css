@@ -1,0 +1,46 @@
+.ProfilePage_imgTop {
+  height: 22vh;
+  width: 100vw;
+  position: relative;
+}
+
+.Profile_user_logo {
+  background-color: rgb(51 62 76);
+  vertical-align: middle;
+  size: large;
+  padding: 4px;
+  height: 100px;
+  width: 100px;
+  line-height: 80px;
+  font-size: 50px;
+}
+
+.Profile_back_btn {
+  border: none;
+  border-radius: 8px;
+  background-color: color(xyz-d50 0.31 0.41 0.64);
+  color: white;
+  position: relative;
+  height: 40px;
+  width: 150px;
+}
+
+.Profiel_logo_back {
+  display: flex;
+  justify-content: space-between;
+  width: 85%;
+  margin: auto;
+  margin-top: -50px;
+}
+
+.Profile_Detail {
+}
+
+.User_Post_upload {
+  height: 60px;
+  width: 60px;
+}
+
+.Profile_Detail_P {
+  margin: 5px;
+}

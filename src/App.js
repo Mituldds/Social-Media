@@ -8,6 +8,7 @@ import { ToastContainer, toast } from "react-toastify";
 import Home from "./component/pages/Home";
 import ForgotPassword from "./component/Login/ForgotPassword";
 import ResetPassword from "./component/Login/ResetPassword";
+import ProfilePage from "./component/pages/ProfilePage/ProfilePage";
 // import Popup from "./component/pages/Popup";
 
 function App() {
@@ -21,6 +22,7 @@ function App() {
         <Route path="/reset_password" element={<ResetPassword />} />
         {/* <Route path="/popup" element={<Popup />} /> */}
       </Routes>
+      <ProfilePage />
 
       <ToastContainer
         position="top-center"
