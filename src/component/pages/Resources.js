@@ -19,7 +19,7 @@ const Resources = () => {
         }
       )
       .then((response) => {
-        console.log(response);
+        // console.log(response);
         setNewsData(response?.data?.value);
       })
       .catch((err) => {

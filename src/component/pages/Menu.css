@@ -3,13 +3,21 @@
   padding-left: 10px;
 }
 
+.card_list li:hover {
+  border-radius: 5px;
+  border: 1px solid #e1dddd;
+  background: #fff;
+}
+
 .card_list li {
-  margin-top: 5px;
+  /* margin-top: 5px; */
+  margin: auto;
+  padding: 5px;
 }
 .menu_card {
-  border: 1px solid rgba(214, 211, 211, 1);
-  background-color: rgba(46, 125, 50, 0.08);
   color: rgba(70, 66, 66, 1);
+  border: 1px solid #d6d3d3;
+  background: rgba(13, 188, 41, 0.08);
 }
 
 .card_list span {

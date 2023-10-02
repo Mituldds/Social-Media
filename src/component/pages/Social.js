@@ -4,7 +4,6 @@ import {
   addDoc,
   getDocs,
   updateDoc,
-  increment,
   collection,
   serverTimestamp,
   getDoc,

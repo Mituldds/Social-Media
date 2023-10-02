@@ -2,14 +2,15 @@ import React from "react";
 import "./Navbar.css";
 import { Avatar } from "antd";
 import { useNavigate } from "react-router-dom";
-
 const Navbar = () => {
   const navigate = useNavigate();
   const user = JSON.parse(localStorage.getItem("user"));
   const handleProfilePage = () => {
-    navigate("/ProfilePage");
+    navigate("/profile_page");
   };
-
+  const handleLogout = () => {
+    navigate("/");
+  };
   return (
     <nav className="header navbar navbar-expand-lg navbar-light bg-light">
       <div className="container-fluid">
@@ -18,18 +19,6 @@ const Navbar = () => {
         </a>
         <form className="d-flex">
           <div className="header_btn">
-            {/* <button
-              type="button"
-              className="login_button btn btn-outline-success btn-sm "
-            >
-              Login
-            </button> */}
-            {/* <img
-              className="navbar_user_logo"
-              src="/Images/img13.jpg"
-              alt="logo"
-            />{" "} */}
-
             <Avatar
               className="navbar_user_logo"
               style={{
@@ -45,6 +34,7 @@ const Navbar = () => {
             <button
               type="button"
               className="signup_button btn btn-success btn-sm mx-3"
+              onClick={handleLogout}
             >
               Log out
             </button>

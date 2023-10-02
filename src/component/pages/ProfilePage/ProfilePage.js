@@ -1,8 +1,9 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import "./ProfilePage.css";
 import { Avatar, Card, Tabs } from "antd";
 import PhotoComp from "./PhotoComp";
+import "./ProfilePage.css";
+
 const ProfilePage = () => {
   const navigate = useNavigate();
   const user = JSON.parse(localStorage.getItem("user"));
@@ -47,11 +48,11 @@ const ProfilePage = () => {
         <div className="container mt-3 Profile_Detail">
           <p className="Profile_Detail_P">
             <b>Name : </b>
-            Alison Jordon Parker{" "}
+            {user.name}{" "}
           </p>
           <p className="Profile_Detail_P">
             <b>E-mail : </b>
-            AlisonJordon@gmail.com{" "}
+            {user.email}{" "}
           </p>
           <p className="Profile_Detail_P">
             <b>Number : </b>

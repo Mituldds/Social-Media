@@ -7,11 +7,10 @@
 .Profile_user_logo {
   background-color: rgb(51 62 76);
   vertical-align: middle;
-  size: large;
   padding: 4px;
-  height: 100px;
-  width: 100px;
-  line-height: 80px;
+  height: 80px;
+  width: 80px;
+  line-height: 65px;
   font-size: 50px;
 }
 
@@ -37,10 +36,15 @@
 }
 
 .User_Post_upload {
-  height: 60px;
-  width: 60px;
+  height: 40px;
+  width: 40px;
 }
 
 .Profile_Detail_P {
   margin: 5px;
+}
+
+.profile_tab {
+  border: 1px solid rgb(0, 0, 0);
+  border-radius: 16px;
 }

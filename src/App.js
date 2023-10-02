@@ -20,9 +20,11 @@ function App() {
         <Route path="/signup" element={<Signup />} />
         <Route path="/forgot_password" element={<ForgotPassword />} />
         <Route path="/reset_password" element={<ResetPassword />} />
+        <Route path="/profile_page" element={<ProfilePage />} />
+
         {/* <Route path="/popup" element={<Popup />} /> */}
+        {/* <ProfilePage /> */}
       </Routes>
-      <ProfilePage />
 
       <ToastContainer
         position="top-center"
