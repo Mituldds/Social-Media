@@ -2,7 +2,8 @@ import React, { useEffect, useState } from "react";
 import { fireStore } from "../../../FirebaseConfig";
 import { collection, getDocs, query, where } from "firebase/firestore";
 import "./PhotoComp.css";
-import { Col, Row } from "antd";
+import { Button, Col, Row } from "antd";
+import { AiFillHeart } from "react-icons/ai";
 
 const PhotoComp = () => {
   const [userPosts, setUserPosts] = useState(null);
@@ -18,14 +19,13 @@ const PhotoComp = () => {
         const querySnapshot = await getDocs(q);
         const userPostsData = [];
         querySnapshot.forEach((doc) => {
-          console.log(doc, "=============");
           userPostsData.push({
             id: doc.id,
             ...doc.data(),
           });
         });
-        console.log(userPostsData);
         setUserPosts(userPostsData);
+        console.log(userPostsData);
       } catch (error) {
         console.error("Error fetching user posts: ", error);
       }
@@ -38,12 +38,18 @@ const PhotoComp = () => {
     <>
       <div className="container">
         <h6>User Posts</h6>
-
         <Row justify="space-evenly" className="mb-3">
           {userPosts?.map((post) => (
             <div key={post?.id} className="user_Upload_list">
-              <p>{post.timestamp}</p>
-              <img className="user_Upload_img" src={post?.postImage} />
+              <img className="user_Upload_img p-3" src={post?.postImage} />
+              <br />
+              <div className="userPost_Like">
+                <Button shape="circle" className="userPost_Like_Btn">
+                  <AiFillHeart />
+                </Button>
+                <p>{post?.likedBy?.length} Likes </p>
+                <p>{post.timestamp}</p>
+              </div>
             </div>
           ))}
         </Row>

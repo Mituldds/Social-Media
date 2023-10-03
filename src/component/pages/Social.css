@@ -1,6 +1,11 @@
 .social_logo {
-  height: 90px;
-  width: 90px;
+  background-color: rgb(51 62 76);
+  vertical-align: middle;
+  padding: 4px;
+  height: 40px;
+  width: 40px;
+  line-height: 28px;
+  font-size: 20px;
 }
 
 .social_media_card_logo {
@@ -15,16 +20,12 @@
   display: flex;
 }
 
-.social_details {
-  display: flex;
-}
-
 .social_details span {
   margin-left: 10px;
 }
 
-.time_comment span {
-  margin-right: 10px;
+.time_comment {
+  margin: 0px;
 }
 
 .card_content {
@@ -38,7 +39,7 @@
 }
 
 .social_card {
-  height: 350px;
+  /* height: 350px; */
   width: 300px;
   border-radius: 15px;
 }
@@ -52,6 +53,7 @@
 
 .socialMedia_card {
   display: flex;
+  margin: 0px;
 }
 
 .Comment_Input {

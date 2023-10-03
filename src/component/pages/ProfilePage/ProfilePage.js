@@ -1,6 +1,6 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import { Avatar, Card, Tabs } from "antd";
+import { Avatar, Tabs } from "antd";
 import PhotoComp from "./PhotoComp";
 import "./ProfilePage.css";
 

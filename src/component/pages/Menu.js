@@ -8,8 +8,10 @@ import { GiDiscussion } from "react-icons/gi";
 import { RxButton } from "react-icons/rx";
 import { ImProfile } from "react-icons/im";
 import "./Menu.css";
+import { useNavigate } from "react-router-dom";
 
 const Menu = () => {
+  const navigate = useNavigate();
   return (
     <div className="card menu_card">
       <div className="card-body">
@@ -62,7 +64,7 @@ const Menu = () => {
             <span>
               <ImProfile />
             </span>
-            <span>Profile</span>
+            <span onClick={() => navigate("/profile_page")}>Profile</span>
           </li>
         </ul>
       </div>

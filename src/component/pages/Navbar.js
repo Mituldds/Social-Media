@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 const Navbar = () => {
   const navigate = useNavigate();
   const user = JSON.parse(localStorage.getItem("user"));
+
   const handleProfilePage = () => {
     navigate("/profile_page");
   };

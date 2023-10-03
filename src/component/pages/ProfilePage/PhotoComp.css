@@ -18,3 +18,20 @@
   padding: 8px 0;
   background: #00a0e9;
 }
+
+.userPost_Like {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-evenly;
+  width: 100%;
+  margin: 0;
+  font-size: inherit;
+  color: black;
+  margin-top: 10px;
+}
+
+.userPost_Like_Btn {
+  color: rgb(255, 0, 0);
+  box-shadow: 10px;
+  border: 0.5px solid rgb(255, 0, 0);
+}

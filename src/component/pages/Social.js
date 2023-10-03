@@ -1,23 +1,21 @@
 import React, { useEffect, useState } from "react";
 import {
   doc,
+  where,
+  query,
   addDoc,
+  getDoc,
   getDocs,
   updateDoc,
   collection,
   serverTimestamp,
-  getDoc,
-  query,
-  where,
 } from "firebase/firestore";
-
+import { FaShare } from "react-icons/fa";
+import { FaComment } from "react-icons/fa";
+import { Avatar, Button, Tabs } from "antd";
+import { AiFillHeart } from "react-icons/ai";
 import { fireStore } from "../../FirebaseConfig";
 import { SiGooglecalendar } from "react-icons/si";
-import { AiFillHeart } from "react-icons/ai";
-import { FaComment } from "react-icons/fa";
-import { FaShare } from "react-icons/fa";
-import { Button } from "antd";
-import { Tabs } from "antd";
 import "./Social.css";
 
 const Social = () => {
@@ -29,6 +27,7 @@ const Social = () => {
     setIsHidden(!isHidden);
   };
   const userId = JSON.parse(localStorage.getItem("user")).id;
+  console.log(userId);
 
   const handleLikeClick = async (postId) => {
     try {
@@ -162,27 +161,29 @@ const Social = () => {
 
       {imageData.map((image) => (
         <div key={image.id}>
-          <div className="social_media_card_logo my-4">
-            <img
+          <div className="social_media_card_logo my-2">
+            {/* <img
               className="social_logo col-2"
               src="/Images/pngegg.png"
               alt="logo"
-            />{" "}
-            <div className="col-8 mx-2">
-              <h5>11 Marketing Channels That Consistently Work for Founders</h5>
+            />{" "} */}
+            <Avatar className="social_logo col-2">
+              {image.email.substring(0, 2).toUpperCase()}
+            </Avatar>
 
-              <div className="social_details row container ">
-                <p className="time_comment">
-                  <SiGooglecalendar className="text-success me-2" />
-                  {image.timestamp} &nbsp;
-                </p>
-              </div>
+            <div className="col-8 mx-2 mx-3">
+              <h6>{image.name}</h6>
+              <p className="time_comment">
+                <SiGooglecalendar className="text-success me-2" />
+                {image.timestamp} &nbsp;
+              </p>
+              {/* <h5>11 Marketing Channels That Consistently Work for Founders</h5> */}
 
               <div className="socialMedia_card card-body">
                 <div>
                   <p>{image.caption}</p>
                   <img
-                    className="social_card card"
+                    className="social_card card p-3"
                     src={image.postImage}
                     alt={image.caption}
                   />
