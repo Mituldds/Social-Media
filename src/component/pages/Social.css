@@ -39,8 +39,8 @@
 }
 
 .social_card {
-  /* height: 350px; */
-  width: 300px;
+  height: 350px;
+  width: 250px;
   border-radius: 15px;
 }
 .social_btn {

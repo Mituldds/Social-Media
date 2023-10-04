@@ -9,6 +9,7 @@ import Home from "./component/pages/Home";
 import ForgotPassword from "./component/Login/ForgotPassword";
 import ResetPassword from "./component/Login/ResetPassword";
 import ProfilePage from "./component/pages/ProfilePage/ProfilePage";
+import UserProfilePage from "./component/pages/UserProfilePage/UserProfilePage";
 // import Popup from "./component/pages/Popup";
 
 function App() {
@@ -21,6 +22,10 @@ function App() {
         <Route path="/forgot_password" element={<ForgotPassword />} />
         <Route path="/reset_password" element={<ResetPassword />} />
         <Route path="/profile_page" element={<ProfilePage />} />
+        <Route
+          path="/user_profile_page/:userId"
+          element={<UserProfilePage />}
+        />
 
         {/* <Route path="/popup" element={<Popup />} /> */}
         {/* <ProfilePage /> */}

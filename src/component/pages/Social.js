@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import {
   doc,
   where,
@@ -22,12 +23,12 @@ const Social = () => {
   const [imageData, setImageData] = useState([]);
   const [comments, setComments] = useState({});
   const [isHidden, setIsHidden] = useState(false);
+  const navigate = useNavigate();
 
   const toggleVisibility = () => {
     setIsHidden(!isHidden);
   };
   const userId = JSON.parse(localStorage.getItem("user")).id;
-  console.log(userId);
 
   const handleLikeClick = async (postId) => {
     try {
@@ -141,6 +142,9 @@ const Social = () => {
     getPosts();
   }, []);
 
+  const handleUploadedPostProfile = (userId) => {
+    navigate(`/user_profile_page/${userId}`);
+  };
   return (
     <>
       <div>
@@ -167,7 +171,10 @@ const Social = () => {
               src="/Images/pngegg.png"
               alt="logo"
             />{" "} */}
-            <Avatar className="social_logo col-2">
+            <Avatar
+              className="social_logo col-2"
+              onClick={() => handleUploadedPostProfile(image.userId)}
+            >
               {image.email.substring(0, 2).toUpperCase()}
             </Avatar>
 

@@ -1,10 +1,10 @@
-.ProfilePage_imgTop {
+.UserProfilePage_imgTop {
   height: 22vh;
   width: 100%;
   position: relative;
 }
 
-.Profile_user_logo {
+.UserProfilePage_user_logo {
   background-color: rgb(51 62 76);
   vertical-align: middle;
   padding: 4px;
@@ -14,7 +14,7 @@
   font-size: 50px;
 }
 
-.Profile_back_btn {
+.UserProfilePage_back_btn {
   border: none;
   border-radius: 8px;
   background-color: color(xyz-d50 0.31 0.41 0.64);
@@ -24,7 +24,7 @@
   width: 150px;
 }
 
-.Profiel_logo_back {
+.UserProfilePage_logo_back {
   display: flex;
   justify-content: space-between;
   width: 85%;
@@ -37,11 +37,11 @@
   width: 40px;
 } */
 
-.Profile_Detail_P {
+.UserProfilePage_Detail_P {
   margin: 5px;
 }
 
-.profile_tab {
-  border: 1px solid rgb(0, 0, 0);
+.UserProfilePage_tab {
+  border: 1px solid rgb(187, 185, 185);
   border-radius: 16px;
 }

@@ -15,7 +15,9 @@ const ProfilePage = () => {
     {
       key: "1",
       label: "Photos",
-      children: <PhotoComp />,
+      children: (
+        <PhotoComp userId={JSON.parse(localStorage.getItem("user")).id} />
+      ),
     },
     {
       key: "2",

@@ -1,19 +1,18 @@
 import React, { useEffect, useState } from "react";
 import { fireStore } from "../../../FirebaseConfig";
 import { collection, getDocs, query, where } from "firebase/firestore";
-import "./PhotoComp.css";
-import { Button, Col, Row } from "antd";
+import { Button, Row } from "antd";
 import { AiFillHeart } from "react-icons/ai";
+import "./PhotoComp.css";
 
-const PhotoComp = () => {
+const PhotoComp = ({ userId }) => {
   const [userPosts, setUserPosts] = useState(null);
-  const user = JSON.parse(localStorage.getItem("user"));
 
   useEffect(() => {
     const fetchUserPosts = async () => {
       const q = query(
         collection(fireStore, "post"),
-        where("userId", "==", user.id)
+        where("userId", "==", userId)
       );
       try {
         const querySnapshot = await getDocs(q);
@@ -32,7 +31,7 @@ const PhotoComp = () => {
     };
 
     fetchUserPosts();
-  }, [user.id]);
+  }, [userId]);
 
   return (
     <>
