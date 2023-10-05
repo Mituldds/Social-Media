@@ -6,6 +6,7 @@ import Menu from "./Menu";
 import AboutUs from "./AboutUs";
 import Social from "./Social";
 import Resources from "./Resources";
+import Chat from "./Chat/Chat";
 
 const Home = () => {
   return (
@@ -19,6 +20,7 @@ const Home = () => {
           </div>
           <div className="social_media col-md-7 ">
             <Social />
+            {/* <Chat /> */}
           </div>
           <div className="col-md-3 ">
             <AboutUs />
