@@ -2,3 +2,26 @@
   height: 700px;
   overflow: scroll;
 }
+
+.social_media::-webkit-scrollbar {
+  width: 12px;
+}
+
+/* Track */
+.social_media::-webkit-scrollbar-track {
+  box-shadow: inset 0 0 10px grey;
+  border-radius: 5px;
+  background: #edfaef;
+}
+
+/* Handle */
+.social_media::-webkit-scrollbar-thumb {
+  border-radius: 10px;
+  height: 150px;
+  background: #1e8756;
+}
+
+/* Handle on hover */
+.social_media::-webkit-scrollbar-thumb:hover {
+  background: #d5e5d7;
+}

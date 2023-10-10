@@ -4,9 +4,8 @@ import Growth from "./Growth";
 import Navbar from "./Navbar";
 import Menu from "./Menu";
 import AboutUs from "./AboutUs";
-import Social from "./Social";
 import Resources from "./Resources";
-import Chat from "./Chat/Chat";
+import { Outlet } from "react-router-dom";
 
 const Home = () => {
   return (
@@ -19,8 +18,7 @@ const Home = () => {
             <Menu />
           </div>
           <div className="social_media col-md-7 ">
-            <Social />
-            {/* <Chat /> */}
+            <Outlet />
           </div>
           <div className="col-md-3 ">
             <AboutUs />

@@ -40,6 +40,7 @@ const Resources = () => {
                   src={data?.image?.thumbnail?.contentUrl}
                   alt="News"
                 />
+
                 <div className="resources_card_text">
                   <p>{data.name}</p>
                 </div>

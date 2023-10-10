@@ -18,6 +18,7 @@ import { AiFillHeart } from "react-icons/ai";
 import { fireStore } from "../../FirebaseConfig";
 import { SiGooglecalendar } from "react-icons/si";
 import "./Social.css";
+import { toast } from "react-toastify";
 
 const Social = () => {
   const [imageData, setImageData] = useState([]);
@@ -30,7 +31,7 @@ const Social = () => {
   };
   const userId = JSON.parse(localStorage.getItem("user")).id;
 
-  const handleLikeClick = async (postId) => {
+  const handleLikeClick = async (postId, postByUser) => {
     try {
       const postRef = doc(fireStore, "post", postId);
       const postSnapshot = await getDoc(postRef);
@@ -43,6 +44,7 @@ const Social = () => {
 
             if (!likedBy.includes(userId)) {
               likedBy.push(userId);
+              toast.success(`liked by ${userId}`);
             } else {
               // If the user already liked, unlike the post
               likedBy.splice(likedBy.indexOf(userId), 1);
@@ -53,7 +55,6 @@ const Social = () => {
           }
           return post;
         });
-
         setImageData(updatedImageData);
 
         // Update Firestore with the updated likedBy array
@@ -71,6 +72,23 @@ const Social = () => {
     }
   };
 
+  const addNotification = async (postId, postByUser) => {
+    const notificationCollection = collection(fireStore, "notification ");
+
+    try {
+      // Add a new comment document to the "comments" collection
+      await addDoc(notificationCollection, {
+        // uploadPostId: postId,
+        likeBy: userId,
+        postByUser: postId,
+      });
+
+      // After adding the comment, refresh the comments for the post
+      await getComments(postId);
+    } catch (error) {
+      console.error("Error adding comment: ", error);
+    }
+  };
   const getComments = async (postId) => {
     const commentsCollection = collection(fireStore, "comments");
     const q = query(commentsCollection, where("postId", "==", postId));
@@ -227,7 +245,7 @@ const Social = () => {
                     style={{
                       color: image?.likedBy?.includes(userId) ? "red" : null,
                     }}
-                    onClick={() => handleLikeClick(image.id)}
+                    onClick={() => handleLikeClick(image.id, image.userId)}
                   >
                     <AiFillHeart />
                   </Button>

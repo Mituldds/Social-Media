@@ -12,6 +12,15 @@ import { useNavigate } from "react-router-dom";
 
 const Menu = () => {
   const navigate = useNavigate();
+  const handleHome = () => {
+    navigate("/");
+  };
+  const handleChat = () => {
+    navigate("/chat");
+  };
+  const handleNotification = () => {
+    navigate("/notification");
+  };
   return (
     <div className="card menu_card">
       <div className="card-body">
@@ -21,7 +30,7 @@ const Menu = () => {
             <span>
               <FaHome />
             </span>
-            <span>Home</span>
+            <span onClick={handleHome}>Home</span>
           </li>
 
           <li>
@@ -34,13 +43,13 @@ const Menu = () => {
             <span>
               <AiOutlineWechat />
             </span>
-            <span>Chat</span>
+            <span onClick={handleChat}>Chat</span>
           </li>
           <li>
             <span>
               <IoIosNotifications />
             </span>
-            <span>Notification</span>
+            <span onClick={handleNotification}>Notification</span>
           </li>
           <li>
             <span>

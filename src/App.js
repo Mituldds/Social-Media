@@ -10,14 +10,22 @@ import ForgotPassword from "./component/Login/ForgotPassword";
 import ResetPassword from "./component/Login/ResetPassword";
 import ProfilePage from "./component/pages/ProfilePage/ProfilePage";
 import UserProfilePage from "./component/pages/UserProfilePage/UserProfilePage";
+import Social from "./component/pages/Social";
+import Chat from "./component/pages/Chat/Chat";
+import Notification from "./component/pages/Notification/Notification";
 // import Popup from "./component/pages/Popup";
 
 function App() {
   return (
     <>
       <Routes>
-        <Route path="/" element={<Login />} />
-        <Route path="/home" element={<Home />} />
+        <Route path="/" element={<Home />}>
+          <Route path="/" element={<Social />} />
+          <Route path="/chat" element={<Chat />} />
+          <Route path="/notification" element={<Notification />} />
+        </Route>
+
+        <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
         <Route path="/forgot_password" element={<ForgotPassword />} />
         <Route path="/reset_password" element={<ResetPassword />} />
@@ -26,7 +34,6 @@ function App() {
           path="/user_profile_page/:userId"
           element={<UserProfilePage />}
         />
-
         {/* <Route path="/popup" element={<Popup />} /> */}
         {/* <ProfilePage /> */}
       </Routes>

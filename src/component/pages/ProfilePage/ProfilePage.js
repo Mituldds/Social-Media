@@ -32,7 +32,7 @@ const ProfilePage = () => {
   ];
 
   const handleBackBtn = () => {
-    navigate("/home");
+    navigate("/");
   };
 
   return (
