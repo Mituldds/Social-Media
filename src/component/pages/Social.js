@@ -45,6 +45,7 @@ const Social = () => {
             if (!likedBy.includes(userId)) {
               likedBy.push(userId);
               toast.success(`liked by ${userId}`);
+              addNotification(postId, postByUser);
             } else {
               // If the user already liked, unlike the post
               likedBy.splice(likedBy.indexOf(userId), 1);
@@ -73,22 +74,20 @@ const Social = () => {
   };
 
   const addNotification = async (postId, postByUser) => {
-    const notificationCollection = collection(fireStore, "notification ");
+    const notificationCollection = collection(fireStore, "notification");
 
     try {
-      // Add a new comment document to the "comments" collection
+      // Add a new Notification document to the "Notification" collection
       await addDoc(notificationCollection, {
-        // uploadPostId: postId,
+        postId,
         likeBy: userId,
-        postByUser: postId,
+        postByUser,
       });
-
-      // After adding the comment, refresh the comments for the post
-      await getComments(postId);
     } catch (error) {
-      console.error("Error adding comment: ", error);
+      console.error("Error adding Notification: ", error);
     }
   };
+
   const getComments = async (postId) => {
     const commentsCollection = collection(fireStore, "comments");
     const q = query(commentsCollection, where("postId", "==", postId));

@@ -47,7 +47,7 @@ const Login = () => {
 
         localStorage.setItem("user", JSON.stringify(foundUsers[0]));
 
-        navigate("/home");
+        navigate("/");
       } else {
         toast.error("password not matched");
       }
@@ -61,7 +61,7 @@ const Login = () => {
       .then((result) => {
         const firebaseUser = result.user;
         setUser(firebaseUser);
-        navigate("/home");
+        navigate("/");
         toast.success("Successfully signed in with Google");
       })
       .catch((error) => {

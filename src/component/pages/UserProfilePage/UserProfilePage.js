@@ -63,7 +63,7 @@ const UserProfilePage = () => {
   ];
 
   const handleBackBtn = () => {
-    navigate("/home");
+    navigate("/");
   };
 
   return (

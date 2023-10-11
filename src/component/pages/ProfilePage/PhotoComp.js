@@ -24,7 +24,7 @@ const PhotoComp = ({ userId }) => {
           });
         });
         setUserPosts(userPostsData);
-        console.log(userPostsData);
+        // console.log(userPostsData);
       } catch (error) {
         console.error("Error fetching user posts: ", error);
       }

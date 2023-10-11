@@ -2,6 +2,7 @@ import React from "react";
 import "./Navbar.css";
 import { Avatar } from "antd";
 import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 const Navbar = () => {
   const navigate = useNavigate();
   const user = JSON.parse(localStorage.getItem("user"));
@@ -10,7 +11,8 @@ const Navbar = () => {
     navigate("/profile_page");
   };
   const handleLogout = () => {
-    navigate("/");
+    navigate("/login");
+    toast.success("user successfully logout");
   };
   return (
     <nav className="header navbar navbar-expand-lg navbar-light bg-light">
