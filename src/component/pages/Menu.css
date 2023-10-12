@@ -11,6 +11,7 @@
 .card_list li {
   margin: auto;
   padding: 5px;
+  display: flex;
 }
 .menu_card {
   color: rgba(70, 66, 66, 1);
@@ -20,4 +21,15 @@
 
 .card_list span {
   margin-right: 8px;
+}
+
+.Notification_Badge {
+  background-color: #bf8888;
+  color: white;
+  font-size: 11px;
+  border-radius: 50%;
+  align-items: center;
+  text-align: center;
+  display: flex;
+  padding: 0px 5px 0px 5px;
 }

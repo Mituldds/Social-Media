@@ -111,6 +111,7 @@ const Social = () => {
         ...prevComments,
         [postId]: postComments,
       }));
+      addNotification(postId);
     } catch (error) {
       console.error("Error getting comments: ", error);
     }
