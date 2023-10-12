@@ -30,9 +30,11 @@ const Post = ({ show, handleClose }) => {
       const imgRef = ref(storage, `files/${v4()}`);
 
       // Upload the image to Firebase Storage
+
       const image = await uploadBytes(imgRef, postData.postImage);
 
       // Get the download URL for the uploaded image
+
       const imageUrl = await getDownloadURL(imgRef);
 
       // Add the imageURL to the postData object

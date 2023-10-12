@@ -2,10 +2,11 @@ import React, { useEffect, useState } from "react";
 import { fireStore } from "../../../FirebaseConfig";
 import { collection, getDocs, query, where } from "firebase/firestore";
 import { Avatar } from "antd";
+import "./Notification.css";
 
 const Notification = () => {
   const [data, setData] = useState([]);
-  const userId = JSON.parse(localStorage.getItem("user"));
+  const userId = JSON.parse(localStorage.getItem("user")).id;
 
   const fetchData = async () => {
     try {
@@ -30,20 +31,20 @@ const Notification = () => {
 
   return (
     <>
-      <div>Notification</div>
-
+      <div className="Notification_Title">Notification</div>
       <ul>
         {data?.length &&
           data?.map((item) => (
-            <div key={item.id}>
-              <li>
-                {item.likeBy}
-                <Avatar className="Profile_user_logo">
-                  {userId.email.substring(0, 2).toUpperCase()}
+            <div className="Notification" key={item.id}>
+              <div>
+                <Avatar className="Notification_Avatar">
+                  {item.likeByEmail.substring(0, 2).toUpperCase()}
                 </Avatar>
-              </li>
-              {/* <li>{item.postId}</li>
-              <li>{item.postByUser}</li> */}
+              </div>
+              <div>
+                <li>{item.name} Like Your Post.</li>
+                <li className="Notification_time">{item.time}</li>
+              </div>
             </div>
           ))}
       </ul>

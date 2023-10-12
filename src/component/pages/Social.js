@@ -30,6 +30,7 @@ const Social = () => {
     setIsHidden(!isHidden);
   };
   const userId = JSON.parse(localStorage.getItem("user")).id;
+  const loginUser = JSON.parse(localStorage.getItem("user"));
 
   const handleLikeClick = async (postId, postByUser) => {
     try {
@@ -74,14 +75,19 @@ const Social = () => {
   };
 
   const addNotification = async (postId, postByUser) => {
+    const currentDate = new Date();
+    const time = currentDate.toLocaleString();
     const notificationCollection = collection(fireStore, "notification");
 
     try {
       // Add a new Notification document to the "Notification" collection
       await addDoc(notificationCollection, {
         postId,
-        likeBy: userId,
+        likeBy: loginUser.id,
+        name: loginUser.name,
+        likeByEmail: loginUser.email,
         postByUser,
+        time,
       });
     } catch (error) {
       console.error("Error adding Notification: ", error);
@@ -225,7 +231,6 @@ const Social = () => {
                           }
                         }}
                       />
-
                       {comments[image.id].map((comment) => (
                         <div key={comment.id}>
                           <div>
