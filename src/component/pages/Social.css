@@ -10,6 +10,8 @@
 
 .social_media_card_logo {
   display: flex;
+  justify-content: center;
+  margin: 10px;
 }
 
 .social_media_card_logo span {
@@ -78,4 +80,44 @@
 
 .Comment_btn {
   align-items: center;
+}
+
+.Social_Content {
+  height: 700px;
+  overflow-y: scroll;
+  width: 98%;
+}
+
+@media screen and (max-width: 760px) {
+  .Social_Content {
+    height: 100%;
+  }
+}
+
+.Social_Content::-webkit-scrollbar {
+  width: 10px;
+}
+
+/* Track */
+.Social_Content::-webkit-scrollbar-track {
+  box-shadow: inset 0 0 5px grey;
+  border-radius: 5px;
+  background: #edfaef;
+}
+
+/* Handle */
+.Social_Content::-webkit-scrollbar-thumb {
+  border-radius: 10px;
+  height: 150px;
+  background: #53ad83;
+}
+
+/* Handle on hover */
+.Social_Content::-webkit-scrollbar-thumb:hover {
+  background: #d5e5d7;
+}
+
+.Social_Tab {
+  margin: auto;
+  width: 95%;
 }

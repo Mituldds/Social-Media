@@ -10,7 +10,7 @@ import { AiFillTags } from "react-icons/ai";
 const AboutUs = () => {
   return (
     <>
-      <div className="About_card card my-4">
+      <div className="About_card card">
         <div className="card-body">
           <div className="about_us_container">
             <h5 className="text-success fw-bold mt-2 mx-2">About Us</h5>

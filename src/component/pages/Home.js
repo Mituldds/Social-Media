@@ -12,18 +12,16 @@ const Home = () => {
     <>
       <Navbar />
       <Growth />
-      <div className=" row container-fluid ">
-        <div className="row">
-          <div className="col-md-2 mt-3">
-            <Menu />
-          </div>
-          <div className="social_media col-md-7 ">
-            <Outlet />
-          </div>
-          <div className="col-md-3 ">
-            <AboutUs />
-            <Resources />
-          </div>
+      <div className="Home">
+        <div className="menu_container">
+          <Menu />
+        </div>
+        <div className="social_media">
+          <Outlet />
+        </div>
+        <div className="resourses_container">
+          <AboutUs />
+          <Resources />
         </div>
       </div>
     </>

@@ -8,19 +8,19 @@ const Resources = () => {
   useEffect(() => {
     axios
       .get(
-        `https://bing-news-search1.p.rapidapi.com/news?safeSearch=off&textFormat=Raw`,
+        "https://bloomberg-market-and-financial-news.p.rapidapi.com/market/auto-complete?query='<REQUIRED>'",
         {
           headers: {
-            "X-BingApis-SDK": "true",
             "X-RapidAPI-Key":
               "b05e0873a7msh014360ebd351fa9p137150jsnd9623429f690",
-            "X-RapidAPI-Host": "bing-news-search1.p.rapidapi.com",
+            "X-RapidAPI-Host":
+              "bloomberg-market-and-financial-news.p.rapidapi.com",
           },
         }
       )
       .then((response) => {
-        // console.log(response);
-        setNewsData(response?.data?.value);
+        console.log(response.data);
+        setNewsData(response?.data.news);
       })
       .catch((err) => {
         console.log(err);
@@ -33,19 +33,22 @@ const Resources = () => {
       {newsData?.map((data, index) => {
         return (
           <div className="card my-3 resources_card" key={index}>
-            <a href={data.url} target="blank">
-              <div className="card-body">
-                <img
+            <p>News Type : {data.card}</p>
+            <a href={data.longURL} target="blank">
+              {" "}
+              {data.title}
+            </a>
+            {/* <div className="card-body">
+              <img
                   className="news_img "
                   src={data?.image?.thumbnail?.contentUrl}
                   alt="News"
                 />
 
-                <div className="resources_card_text">
-                  <p>{data.name}</p>
-                </div>
+              <div className="resources_card_text">
+                <p>{data.name}</p>
               </div>
-            </a>
+            </div> */}
           </div>
         );
       })}

@@ -1,21 +1,56 @@
 .Notification_Title {
-  font-size: 28px;
+  font-size: 22px;
   font-weight: 700;
-  margin-top: 10px;
+  width: 92%;
+  margin: auto;
+}
+
+.Notification_Title ul {
+  height: 700px;
+  overflow-y: scroll;
+}
+.Notification_content {
+  margin: auto;
+  width: 92%;
+  height: 400px;
+  overflow-y: scroll;
+}
+
+.Notification_content::-webkit-scrollbar {
+  width: 10px;
+}
+
+/* Track */
+.Notification_content::-webkit-scrollbar-track {
+  box-shadow: inset 0 0 5px grey;
+  border-radius: 5px;
+  background: #edfaef;
+}
+
+/* Handle */
+.Notification_content::-webkit-scrollbar-thumb {
+  border-radius: 10px;
+  height: 150px;
+  background: #53ad83;
+}
+
+/* Handle on hover */
+.Notification_content::-webkit-scrollbar-thumb:hover {
+  background: #d5e5d7;
 }
 
 .Notification {
+  width: 50%;
   border: none;
-  border-radius: 8px;
-  height: 60px;
-  width: 350px;
-  background-color: #d5e5d7;
-  box-shadow: 0px 0px 8px 6px rgb(0 0 0 / 20%);
-  list-style: none;
   margin-top: 20px;
+  list-style: none;
+  border-radius: 8px;
+  padding: 8px;
+  border: 1.5px solid #5f9141;
   align-items: center;
+  background-color: #d5e5d7;
+  /* box-shadow: 0px 0px 8px 6px rgb(0 0 0 / 20%); */
   box-shadow: inset 0 0 20px 5px rgb(87 114 63 / 45%);
-  position: relative;
 }
 
 .Notification_Avatar {
@@ -39,8 +74,23 @@
 }
 
 .Notification_name {
-  display: flex;
+  /* display: flex;
   align-items: center;
-  justify-content: space-evenly;
-  width: 60%;
+  justify-content: space-evenly; */
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.Comment_Notification {
+  margin: 0px;
+  font-weight: 500;
+}
+
+.Notification_CommentText {
+  margin: 0px;
+}
+
+.Notification_time P {
+  margin: 0px;
 }

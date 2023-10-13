@@ -4,6 +4,10 @@
 }
 
 .resources_card {
+  font-size: 22px;
+  font-weight: 600;
+  padding: 10px;
+  background-color: beige;
   box-shadow: 0px 0px 8px 0px rgba(46, 125, 50, 0.7);
 }
 .resources_card_text {

@@ -35,7 +35,7 @@ const Notification = () => {
   return (
     <>
       <div className="Notification_Title">Notification</div>
-      <ul>
+      <div className="Notification_content">
         {data?.length &&
           data?.map((item) => (
             <div className="Notification" key={item.id}>
@@ -43,14 +43,24 @@ const Notification = () => {
                 <Avatar className="Notification_Avatar">
                   {item.likeByEmail.substring(0, 2).toUpperCase()}
                 </Avatar>
-                <li>{item.name} Like Your Post.</li>
+                <p className="Comment_Notification">
+                  {item.name}
+                  {item?.commentText
+                    ? " Comment Your Post."
+                    : " Like Your Post."}
+                  {item.commentText && (
+                    <p className="Notification_CommentText">
+                      {item.commentText}
+                    </p>
+                  )}
+                </p>
               </div>
               <div className="Notification_time">
-                <li>{item.time}</li>
+                <p>{item.time}</p>
               </div>
             </div>
           ))}
-      </ul>
+      </div>
     </>
   );
 };

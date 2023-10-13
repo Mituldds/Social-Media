@@ -45,7 +45,7 @@ const Social = () => {
 
             if (!likedBy.includes(userId)) {
               likedBy.push(userId);
-              toast.success(`liked by ${userId}`);
+              toast.success(` You like ${postId.name} post`);
               addNotification(postId, postByUser);
             } else {
               // If the user already liked, unlike the post
@@ -74,7 +74,7 @@ const Social = () => {
     }
   };
 
-  const addNotification = async (postId, postByUser) => {
+  const addNotification = async (postId, postByUser, commentText) => {
     const currentDate = new Date();
     const time = currentDate.toLocaleString();
     const notificationCollection = collection(fireStore, "notification");
@@ -87,6 +87,7 @@ const Social = () => {
         name: loginUser.name,
         likeByEmail: loginUser.email,
         postByUser,
+        ...(commentText && { commentText }),
         time,
       });
     } catch (error) {
@@ -111,15 +112,15 @@ const Social = () => {
         ...prevComments,
         [postId]: postComments,
       }));
-      addNotification(postId);
+      // addNotification(postId);
+      // toast.success("Comment successfully");
     } catch (error) {
       console.error("Error getting comments: ", error);
     }
   };
 
-  const addComment = async (postId, commentText) => {
+  const addComment = async (postId, commentText, postByUser) => {
     const commentsCollection = collection(fireStore, "comments");
-
     try {
       // Add a new comment document to the "comments" collection
       await addDoc(commentsCollection, {
@@ -128,6 +129,8 @@ const Social = () => {
         userId, // You can retrieve the user ID in a similar way to how you retrieve it for liking posts
         timestamp: serverTimestamp(),
       });
+      addNotification(postId, postByUser, commentText);
+      toast.success("Comment successfully");
 
       // After adding the comment, refresh the comments for the post
       await getComments(postId);
@@ -173,6 +176,7 @@ const Social = () => {
     <>
       <div>
         <Tabs
+          className="Social_Tab"
           defaultActiveKey="1"
           centered
           items={new Array(3).fill(null).map((_, i) => {
@@ -187,99 +191,105 @@ const Social = () => {
         />
       </div>
 
-      {imageData.map((image) => (
-        <div key={image.id}>
-          <div className="social_media_card_logo my-2">
-            {/* <img
+      <div className="Social_Content">
+        {imageData.map((image) => (
+          <div key={image.id}>
+            <div className="social_media_card_logo">
+              {/* <img
               className="social_logo col-2"
               src="/Images/pngegg.png"
               alt="logo"
             />{" "} */}
-            <Avatar
-              className="social_logo col-2"
-              onClick={() => handleUploadedPostProfile(image.userId)}
-            >
-              {image.email.substring(0, 2).toUpperCase()}
-            </Avatar>
+              <Avatar
+                className="social_logo col-2"
+                onClick={() => handleUploadedPostProfile(image.userId)}
+              >
+                {image.email.substring(0, 2).toUpperCase()}
+              </Avatar>
 
-            <div className="col-8 mx-2 mx-3">
-              <h6>{image.name}</h6>
-              <p className="time_comment">
-                <SiGooglecalendar className="text-success me-2" />
-                {image.timestamp} &nbsp;
-              </p>
-              {/* <h5>11 Marketing Channels That Consistently Work for Founders</h5> */}
+              <div className="col-8 mx-2 mx-3">
+                <h6>{image.name}</h6>
+                <p className="time_comment">
+                  <SiGooglecalendar className="text-success me-2" />
+                  {image.timestamp} &nbsp;
+                </p>
+                {/* <h5>11 Marketing Channels That Consistently Work for Founders</h5> */}
 
-              <div className="socialMedia_card card-body">
-                <div>
-                  <p>{image.caption}</p>
-                  <img
-                    className="social_card card p-3"
-                    src={image.postImage}
-                    alt={image.caption}
-                  />
+                <div className="socialMedia_card card-body">
+                  <div>
+                    <p>{image.caption}</p>
+                    <img
+                      className="social_card card p-3"
+                      src={image.postImage}
+                      alt={image.caption}
+                    />
 
-                  {isHidden && (
-                    <div className="Comment_Box">
-                      <input
-                        className="Comment_Input"
-                        type="text"
-                        placeholder="Add a comment"
-                        onKeyDown={(e) => {
-                          if (e.key === "Enter") {
-                            addComment(image.id, e.target.value);
-                            e.target.value = "";
-                          }
-                        }}
-                      />
-                      {comments[image.id].map((comment) => (
-                        <div key={comment.id}>
-                          <div>
-                            <p className="Commnet_P">{comment.text}</p>
+                    {isHidden && (
+                      <div className="Comment_Box">
+                        <input
+                          className="Comment_Input"
+                          type="text"
+                          placeholder="Add a comment"
+                          onKeyDown={(e) => {
+                            if (e.key === "Enter") {
+                              addComment(
+                                image.id,
+                                e.target.value,
+                                image.userId
+                              );
+                              e.target.value = "";
+                            }
+                          }}
+                        />
+                        {comments[image.id].map((comment) => (
+                          <div key={comment.id}>
+                            <div>
+                              <p className="Commnet_P">{comment.text}</p>
+                            </div>
+                            {/* Add other comment information as needed */}
                           </div>
-                          {/* Add other comment information as needed */}
-                        </div>
-                      ))}
-                    </div>
-                  )}
-                </div>
+                        ))}
+                      </div>
+                    )}
+                  </div>
 
-                <div className="social_btn">
-                  <Button
-                    shape="circle"
-                    style={{
-                      color: image?.likedBy?.includes(userId) ? "red" : null,
-                    }}
-                    onClick={() => handleLikeClick(image.id, image.userId)}
-                  >
-                    <AiFillHeart />
-                  </Button>
-                  <p>{image?.likedBy?.length || 0} Likes</p>
-
-                  {comments[image.id] && (
-                    <div className="Comment_btn">
-                      <Button shape="circle" onClick={toggleVisibility}>
-                        <FaComment />
-                      </Button>
-                      <p>{comments[image.id].length} Comments</p>
-                    </div>
-                  )}
-                  <div className="Post_share_btn">
-                    <Button shape="circle">
-                      <FaShare />
+                  <div className="social_btn">
+                    <Button
+                      shape="circle"
+                      style={{
+                        color: image?.likedBy?.includes(userId) ? "red" : null,
+                      }}
+                      onClick={() => handleLikeClick(image.id, image.userId)}
+                    >
+                      <AiFillHeart />
                     </Button>
-                    <p>378</p>
+                    <p>{image?.likedBy?.length || 0} Likes</p>
+
+                    {comments[image.id] && (
+                      <div className="Comment_btn">
+                        <Button shape="circle" onClick={toggleVisibility}>
+                          <FaComment />
+                        </Button>
+                        <p>{comments[image.id].length} Comments</p>
+                      </div>
+                    )}
+                    <div className="Post_share_btn">
+                      <Button shape="circle">
+                        <FaShare />
+                      </Button>
+                      <p>378</p>
+                    </div>
                   </div>
                 </div>
               </div>
+              <button className="follow_btn btn btn-outline-success mx-2">
+                Follow
+              </button>
             </div>
-            <button className="follow_btn btn btn-outline-success mx-2">
-              Follow
-            </button>
+            <br />
           </div>
-          <br />
-        </div>
-      ))}
+        ))}
+      </div>
     </>
   );
 };
